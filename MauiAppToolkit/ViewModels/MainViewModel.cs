@@ -97,14 +97,14 @@ public sealed class MainViewModel : ObservableObject
 
     public MainViewModel()
     {
-        _textBoxFileName = "MonFichier.cyp"; // nom du fichier de l'utilisateur par défaut
-        _textBoxFileNamePlaceholder = "Nom du fichier :";
+        _textBoxFileName = "FileName.txt"; // nom du fichier de l'utilisateur par défaut
+        _textBoxFileNamePlaceholder = "File Name :";
         _textToUser = "";
-        _placeholderTextToUser = "Entrez la clef.";
-        _editorFileText = "Contenu du fichier à décrypter...";
+        _placeholderTextToUser = "Text for user alter";
+        _editorFileText = "File's Content that may be saved...";
         _checkBoxSupprimerBakChecked = true;
 
-        SendConsole("Application prête à fonctionner.");
+        SendConsole("Application started and ready.");
         SetupCommands();
     }
 
@@ -129,7 +129,7 @@ public sealed class MainViewModel : ObservableObject
                 {
                     { DevicePlatform.iOS, new[] { "public.my.comic.extension" } }, // UTType values
                     { DevicePlatform.Android, new[] { "application/comics", "*/*" } }, // MIME type
-                    { DevicePlatform.WinUI, new[] { ".cyp", ".bak", "*" } }, // file extension
+                    { DevicePlatform.WinUI, new[] { ".txt", ".bak", "*" } }, // file extension
                     { DevicePlatform.Tizen, new[] { "*/*" } },
                     { DevicePlatform.macOS, new[] { "cbr", "cbz" } }, // UTType values
                 });
