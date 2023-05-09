@@ -181,11 +181,11 @@ public sealed class MainViewModel : ObservableObject
         // 3 - Read in Byte the File
         //
 
-        byte[] fichierCrypteByte = new byte[fs.Length];
-        fs.Read(fichierCrypteByte, 0, (int)fs.Length);
+        byte[] fileInBytes = new byte[fs.Length];
+        fs.Read(fileInBytes, 0, (int)fs.Length);
         fs.Close();
 
-        EditorFileText = Strings.ByteArrayToString(fichierCrypteByte);
+        EditorFileText = Strings.ByteArrayToString(fileInBytes);
 
         // Display scroll bar if text is to long
         // le nombre de lignes du textBox
@@ -298,10 +298,10 @@ public sealed class MainViewModel : ObservableObject
         // 3 - Cryptographie en phase gazeuse
         //
 
-        byte[] fichierCrypteByte = new byte[EditorFileText.Length];
-        fichierCrypteByte = Strings.StringToByteArray(EditorFileText);
+        byte[] fileInBytes = new byte[EditorFileText.Length];
+        fileInBytes = Strings.StringToByteArray(EditorFileText);
 
-        fs.Write(fichierCrypteByte, 0, EditorFileText.Length);
+        fs.Write(fileInBytes, 0, EditorFileText.Length);
         fs.Close();
 
         displayToConsole("File in Byte read \"" + TextBoxFileName + "\"");
