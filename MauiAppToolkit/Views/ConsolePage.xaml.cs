@@ -1,7 +1,7 @@
 using Microsoft.Maui.Controls.Xaml;
-using Registration.ViewModels;
+using MauiAppToolkit.ViewModels;
 
-namespace Registration.Views;
+namespace MauiAppToolkit.Views;
 
 public partial class ConsolePage : ContentPage
 {

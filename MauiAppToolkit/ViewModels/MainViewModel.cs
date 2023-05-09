@@ -9,9 +9,9 @@ using System.Windows.Input;
 using System.Threading;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.Maui.Storage;
-using Sodevlog.Cryptographie;
+using SoDevLog;
 
-namespace Registration.ViewModels;
+namespace MauiAppToolkit.ViewModels;
 
 public sealed class MainViewModel : ObservableObject
 {
@@ -60,19 +60,19 @@ public sealed class MainViewModel : ObservableObject
         get { return _textBoxFileNamePlaceholder; }
     }
 
-    private static string _clefText;
-    public string ClefText
+    private static string _textToUser;
+    public string TextToUser
     {
-        set { SetProperty(ref _clefText, value); }
-        get { return _clefText; }
+        set { SetProperty(ref _textToUser, value); }
+        get { return _textToUser; }
     }
 
     
-    private static string _clefPlaceholder;
-    public string ClefPlaceholder
+    private static string _placeholderTextToUser;
+    public string PlaceholderTextToUser
     {
-        set { SetProperty(ref _clefPlaceholder, value); }
-        get { return _clefPlaceholder; }
+        set { SetProperty(ref _placeholderTextToUser, value); }
+        get { return _placeholderTextToUser; }
     }
 
     private static string _editorFileText;
@@ -99,8 +99,8 @@ public sealed class MainViewModel : ObservableObject
     {
         _textBoxFileName = "MonFichier.cyp"; // nom du fichier de l'utilisateur par défaut
         _textBoxFileNamePlaceholder = "Nom du fichier :";
-        _clefText = "";
-        _clefPlaceholder = "Entrez la clef.";
+        _textToUser = "";
+        _placeholderTextToUser = "Entrez la clef.";
         _editorFileText = "Contenu du fichier à décrypter...";
         _checkBoxSupprimerBakChecked = true;
 
@@ -119,32 +119,7 @@ public sealed class MainViewModel : ObservableObject
         SendConsole("Begin - OpenFile");
 
         //
-        // 1 - Otherwise it's not worth going any further
-        //
-
-        if (ClefText == "")
-        {
-            afficherTextBoxConsole("Vous devez enter une clef de décryptage.");
-            ClefPlaceholder = "Vous devez entrez une Clef, la Clef ne peut pas être vide...";
-            return;
-        }
-
-        long clef = 0;
-
-        try
-        {
-            clef = long.Parse(ClefText);
-        }
-        catch
-        {
-            afficherTextBoxConsole("La clef n'est pas un long compris entre 1 et 2 147 483 647");
-            ClefText = "";
-            ClefPlaceholder = "Clef incorrecte...";
-            return;
-        }
-
-        //
-        // 2 - Open Dialog Box to read the File 
+        // 1 - Open Dialog Box to read the File 
         //
 
         CancellationToken cancellationToken = CancellationToken.None;
@@ -165,7 +140,7 @@ public sealed class MainViewModel : ObservableObject
             FileTypes = customFileType,
         };
 
-        // 2.1 - Open Dialog Box
+        // 1.1 - Open Dialog Box
 
         FileResult result = await FilePicker.Default.PickAsync(options);
 
@@ -178,14 +153,14 @@ public sealed class MainViewModel : ObservableObject
         {
             SendConsole("No file selected!");
             TextBoxFileName = "";
-            TextBoxFileNamePlaceholder = "Erreur sur le fichier.";
+            TextBoxFileNamePlaceholder = "Error on picking File.";
             return;
         }
 
-        afficherTextBoxConsole(String.Format("End - Try OpenFile : {0}", TextBoxFileName));
+        displayToConsole(String.Format("End - Try OpenFile : {0}", TextBoxFileName));
 
         //
-        // 3 - Try to read the file
+        // 2 - Try to read the file
         //
 
         FileStream fs;
@@ -196,25 +171,23 @@ public sealed class MainViewModel : ObservableObject
         }
         catch
         {
-            afficherTextBoxConsole("Impossible de lire le fichier.");
+            displayToConsole("Impossible to read the File.");
             TextBoxFileName = "";
-            TextBoxFileNamePlaceholder = "Lecture du fichier imposssible.";
+            TextBoxFileNamePlaceholder = "Impossible to read the File.";
             return;
         }
 
         //
-        // 4 - Decrypt the File
+        // 3 - Read in Byte the File
         //
 
         byte[] fichierCrypteByte = new byte[fs.Length];
         fs.Read(fichierCrypteByte, 0, (int)fs.Length);
         fs.Close();
 
-        fichierCrypteByte = Crypte.ByteArray(fichierCrypteByte, clef);
-        string text = Crypte.ByteArrayToString(fichierCrypteByte);
-        EditorFileText = text;
+        EditorFileText = Strings.ByteArrayToString(fichierCrypteByte);
 
-        // Afficher la scrollbar si le texte dépasse
+        // Display scroll bar if text is to long
         // le nombre de lignes du textBox
         //
         if (EditorFileText.Length > 21 * 50) // Comptées à la main dans le textBox ...
@@ -222,43 +195,24 @@ public sealed class MainViewModel : ObservableObject
             // TODO: textBoxFichier.ScrollBars = ScrollBars.Vertical;
         }
 
-        afficherTextBoxConsole("Lecture et décryptage du fichier \"" + TextBoxFileName + "\"");
-//        afficherLabelMessageVert("Lecture et décryptage du fichier.");
+        displayToConsole("Read and display file \"" + TextBoxFileName + "\"");
     }
 
     private async void SaveFile()
     {
-        //
-        // 1 - Otherwise it's not worth going any further
-        //
-
-        long clef = 0;
-
-        try
-        {
-            clef = long.Parse(ClefText);
-        }
-        catch
-        {
-            afficherTextBoxConsole("La clef n'est pas un long compris entre 1 et 2 147 483 647");
-            ClefText = "";
-            ClefPlaceholder = "Clef incorrecte.";
-            return;
-        }
-
         if (TextBoxFileName == "")
         {
-            afficherTextBoxConsole("Vous devez entrer le nom d'un fichier.");
-            ClefText = "";
-            ClefPlaceholder = "Entrez un nom de fichier.";
+            displayToConsole("There must be a File name.");
+            TextToUser = "";
+            PlaceholderTextToUser = "Enter File name.";
             return;
         }
 
         if (EditorFileText == "")
         {
-            afficherTextBoxConsole("Aucun texte à sauvegarder.");
-            ClefText = "";
-            ClefPlaceholder = "Entrez du contenu à sauvegarder.";
+            displayToConsole("No Text to save.");
+            TextToUser = "";
+            PlaceholderTextToUser = "Enter text to save.";
             return;
         }
 
@@ -266,7 +220,7 @@ public sealed class MainViewModel : ObservableObject
         // 2 - Creating a new file
         //
 
-        // Si le fichier a ete ouvert par la dialogue Box Open, il contient le repertoire complet
+        // If the File had been opened by Dialog Box Open there is the path in it
         if (FileOpenned == true)
         {
             // On sait que le fichier existe puisque l'on vient de l'ouvrir
@@ -274,10 +228,10 @@ public sealed class MainViewModel : ObservableObject
             if (File.Exists(TextBoxFileName + ".bak"))
             {
                 File.Delete(TextBoxFileName + ".bak");
-                afficherTextBoxConsole("Suppression du fichier \"" + TextBoxFileName + "\"");
+                displayToConsole("Suppression du fichier \"" + TextBoxFileName + "\"");
             }
             File.Move(TextBoxFileName, TextBoxFileName + ".bak");
-            afficherTextBoxConsole("Sauvegarde du fichier .bak");
+            displayToConsole("Sauvegarde du fichier .bak");
         }
         else
         {
@@ -304,24 +258,24 @@ public sealed class MainViewModel : ObservableObject
 
                 if ( answer == false )
                 {
-                    afficherTextBoxConsole(messageFileAlreadyExist);
-                    ClefText = "";
-                    ClefPlaceholder = messageFileAlreadyExist;
+                    displayToConsole(messageFileAlreadyExist);
+                    TextToUser = "";
+                    PlaceholderTextToUser = messageFileAlreadyExist;
                     return;
                 }
             }
 
-            // Sauvegarde du fichier en .bak
-            // Mais si le fichier n'existe pas encore, alors on ne fait pas de .bak
+            // Save the File .bak
+            // but if file not already exist, don't create .bak
             if (File.Exists(TextBoxFileName))
             {
                 if (File.Exists(TextBoxFileName + ".bak"))
                 {
                     File.Delete(TextBoxFileName + ".bak");
-                    afficherTextBoxConsole("Suppression du fichier \"" + TextBoxFileName + "\"");
+                    displayToConsole("File deleted  \"" + TextBoxFileName + "\"");
                 }
                 File.Move(TextBoxFileName, TextBoxFileName + ".bak");
-                afficherTextBoxConsole("Sauvegarde du fichier .bak");
+                displayToConsole("Save file .bak");
             }
         }
 
@@ -334,41 +288,40 @@ public sealed class MainViewModel : ObservableObject
         }
         catch
         {
-            afficherTextBoxConsole("Impossible de créer le fichier.");
+            displayToConsole("Impossible to create the File.");
             return;
         }
 
-        afficherTextBoxConsole("Fichier créé correctement.");
+        displayToConsole("File created.");
 
         //
         // 3 - Cryptographie en phase gazeuse
         //
 
         byte[] fichierCrypteByte = new byte[EditorFileText.Length];
-        fichierCrypteByte = Crypte.StringToByteArray(EditorFileText);
-        fichierCrypteByte = Crypte.ByteArray(fichierCrypteByte, clef);
+        fichierCrypteByte = Strings.StringToByteArray(EditorFileText);
 
         fs.Write(fichierCrypteByte, 0, EditorFileText.Length);
         fs.Close();
 
-        afficherTextBoxConsole("Cryptage et sauvegarde du fichier \"" + TextBoxFileName + "\"");
+        displayToConsole("File in Byte read \"" + TextBoxFileName + "\"");
 
         if ( CheckBoxSupprimerBakChecked == true)
         {
             if (!File.Exists(TextBoxFileName + ".bak"))
             {
-                afficherTextBoxConsole("Case est cochée mais le fichier \"" + TextBoxFileName + ".bak" + "\" n'existe pas.");
+                displayToConsole("Checkbox checked but the file \"" + TextBoxFileName + ".bak" + "\" does not exist.");
                 return;
             }
 
             File.Delete(TextBoxFileName + ".bak");
-            afficherTextBoxConsole("Fichier : " + TextBoxFileName + ".bak" + " supprimé.");
+            displayToConsole("File : " + TextBoxFileName + ".bak" + " deleted.");
         }
     }
 
     // -------------------------------------------
 
-    public void afficherTextBoxConsole(string message)
+    public void displayToConsole(string message)
     {
         SendConsole(message);
     }

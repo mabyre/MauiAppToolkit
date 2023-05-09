@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using MauiAppToolkit.Views;
+using Microsoft.Extensions.Logging;
 
 namespace MauiAppToolkit;
 

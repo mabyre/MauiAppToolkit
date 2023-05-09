@@ -1,4 +1,6 @@
-﻿namespace MauiAppToolkit;
+﻿using MauiAppToolkit.ViewModels;
+
+namespace MauiAppToolkit;
 
 public partial class MainPage : ContentPage
 {

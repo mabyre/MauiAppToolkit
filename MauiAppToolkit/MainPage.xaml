@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiAppToolkit.MainPage">
+             x:Class="MauiAppToolkit.MainPage"
              Title="Ouvrir un fichier">
     <!--
         checkBoxSupressBak
@@ -19,15 +19,9 @@
         <VerticalStackLayout Spacing="10" Margin="5">
 
             <Border Style="{StaticResource BorderStyleBlue}">
-                <Grid ColumnDefinitions="45,*" HorizontalOptions="FillAndExpand" Margin="5">
-                    <Label Text="Clef : "
-                        HorizontalOptions="Start"
-                        VerticalOptions="Center"
-                        />
-
-                    <Entry Grid.Column="1"
-                        Text="{Binding ClefText}"
-                        Placeholder="{Binding ClefPlaceholder}"
+                <Grid HorizontalOptions="FillAndExpand" Margin="5">
+                    <Entry Text="{Binding TextToUser}"
+                        Placeholder="{Binding PlaceholderTextToUser}"
                         MinimumWidthRequest="550"
                         HorizontalOptions="FillAndExpand" 
                         Keyboard="Text"

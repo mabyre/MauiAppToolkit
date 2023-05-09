@@ -4,7 +4,7 @@
 //
 using Microsoft.Maui;
 
-namespace Registration;
+namespace MauiAppToolkit;
 
 static class IconFont
 {
