@@ -118,6 +118,12 @@ public sealed class MainViewModel : ObservableObject
     {
         SendConsole("Begin - OpenFile");
 
+        // _BRY_
+        string cacheDir = FileSystem.Current.CacheDirectory;
+        SendConsole(String.Format("FileSystem.Current.CacheDirectory: {0}", cacheDir));
+        string mainDir = FileSystem.Current.AppDataDirectory;
+        SendConsole(String.Format("FileSystem.Current.AppDataDirectory: {0}", mainDir));
+
         //
         // 1 - Open Dialog Box to read the File 
         //
@@ -148,6 +154,7 @@ public sealed class MainViewModel : ObservableObject
         {
             TextBoxFileName = result.FullPath;
             FileOpenned = true;
+            SendConsole(String.Format("End - Try OpenFile : {0}", TextBoxFileName));
         }
         else
         {
@@ -156,8 +163,6 @@ public sealed class MainViewModel : ObservableObject
             TextBoxFileNamePlaceholder = "Error on picking File.";
             return;
         }
-
-        displayToConsole(String.Format("End - Try OpenFile : {0}", TextBoxFileName));
 
         //
         // 2 - Try to read the file
