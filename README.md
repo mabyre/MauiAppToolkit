@@ -34,5 +34,7 @@ FileSystem.Current.CacheDirectory :
 FileSystem.Current.AppDataDirectory
 /data/user/0/com.companyname.mauiapptoolkit/files
 
+Here is the path to the file a read in OneDrive: 
+
 /storage/emulated/0/Android/data/com.companyname.mauiapptoolkit/cache
 /2203693cc04e0be7f4f024d5f9499e13/92c9d622ed3d489a8a37b988f0c003c1/file.xxx
