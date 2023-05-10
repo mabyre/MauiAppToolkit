@@ -20,7 +20,7 @@ public static class MauiProgram
             .RegisterView();
 
 #if DEBUG
-		builder.Logging.AddDebug();
+		builder.Logging.AddDebug().SetMinimumLevel(LogLevel.Trace);
 #endif
 
 		return builder.Build();
