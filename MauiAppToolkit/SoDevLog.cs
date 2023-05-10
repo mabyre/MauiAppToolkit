@@ -32,17 +32,17 @@ public class Strings
     }
     static public bool StringSearchWord(string str, string mot)
     {
-        bool trouve = false;
+        bool founded = false;
 
         for (int i = 0; i < str.Length; i++)
         {
             if (String.Compare(mot, 0, str, i, mot.Length) == 0)
             {
-                trouve = true;
+                founded = true;
             }
-            if (trouve == true) break;
+            if (founded == true) break;
         }
-        return trouve;
+        return founded;
     }
 
     static public byte[] StringToByteArray(string str)
