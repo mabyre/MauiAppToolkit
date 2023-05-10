@@ -142,7 +142,7 @@ public sealed class MainViewModel : ObservableObject
 
         PickOptions options = new()
         {
-            PickerTitle = "Please select a comic file",
+            PickerTitle = "Please select a file",
             FileTypes = customFileType,
         };
 
