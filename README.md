@@ -22,3 +22,17 @@ This application is a Flyout Tab ContentPage :
     </Tab>
 ```
 
+### Log to a Console
+
+For applications that are a little tutchy, it's important while you are not in debug mode to have clear messages to the user. This the aim of Console.
+
+### Save File
+
+FileSystem.Current.CacheDirectory :
+/data/user/0/com.companyname.mauiapptoolkit/cache
+
+FileSystem.Current.AppDataDirectory
+/data/user/0/com.companyname.mauiapptoolkit/files
+
+/storage/emulated/0/Android/data/com.companyname.mauiapptoolkit/cache
+/2203693cc04e0be7f4f024d5f9499e13/92c9d622ed3d489a8a37b988f0c003c1/file.xxx
