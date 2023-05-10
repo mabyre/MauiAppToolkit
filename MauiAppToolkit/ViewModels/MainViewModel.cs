@@ -10,10 +10,12 @@ using System.Threading;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.Maui.Storage;
 using SoDevLog;
+using CommunityToolkit.Maui.Storage;
+using AndroidX.Annotations;
 
 namespace MauiAppToolkit.ViewModels;
 
-public sealed class MainViewModel : ObservableObject
+public sealed partial class MainViewModel : ObservableObject
 {
     //--------------------------------------------
     // Console ViewModel
@@ -91,8 +93,6 @@ public sealed class MainViewModel : ObservableObject
 
     // Command Binding properties
 
-    public ICommand OpenFileCommand { private set; get; }
-
     public ICommand SaveFileCommand { private set; get; }
 
     public MainViewModel()
@@ -110,19 +110,37 @@ public sealed class MainViewModel : ObservableObject
 
     private void SetupCommands()
     {
-        OpenFileCommand = new RelayCommand(OpenFile);
         SaveFileCommand = new RelayCommand(SaveFile);
     }
 
-    public async void OpenFile()
+    [RelayCommand]
+    public async Task OpenFile()
     {
         SendConsole("Begin - OpenFile");
 
-        // _BRY_
+        // TODO: _BRY_
         string cacheDir = FileSystem.Current.CacheDirectory;
         SendConsole(String.Format("FileSystem.Current.CacheDirectory: {0}", cacheDir));
         string mainDir = FileSystem.Current.AppDataDirectory;
         SendConsole(String.Format("FileSystem.Current.AppDataDirectory: {0}", mainDir));
+
+        // User folder choice
+        //string initialPath = "DCIM"; 
+        string initialPath = "ANE-LX1";
+        var folderResult = await FolderPicker.PickAsync(initialPath, CancellationToken.None);
+        if (folderResult.IsSuccessful)
+        {
+            var filesCount = Directory.EnumerateFiles(folderResult.Folder.Path).Count();
+            SendConsole(String.Format("Folder.Name:{0}", folderResult.Folder.Name));
+            SendConsole(String.Format("Folder.Path: {0}", folderResult.Folder.Path));
+            SendConsole(String.Format("filecount: {0}", filesCount));
+        }
+        else
+        {
+            SendConsole("Folder choice UnSucessful");
+        }
+
+        return; // TODO: Fin _BRY
 
         //
         // 1 - Open Dialog Box to read the File 
