@@ -161,7 +161,7 @@ public sealed class MainViewModel : ObservableObject
                 {
                     { DevicePlatform.iOS, new[] { "public.my.comic.extension" } }, // UTType values
                     { DevicePlatform.Android, new[] { "*/*" } }, // MIME type
-                    { DevicePlatform.WinUI, new[] { "*.txt", "*.odt" } }, // file extension
+                    { DevicePlatform.WinUI, new[] { "" } }, // file extension
                     { DevicePlatform.Tizen, new[] { "*/*" } },
                     { DevicePlatform.macOS, new[] { "cbr", "cbz" } }, // UTType values
                 });
