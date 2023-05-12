@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiAppToolkit", "MauiAppTo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Éléments de solution", "Éléments de solution", "{A3099304-E791-4CFB-B249-5DCF043B4F8D}"
 	ProjectSection(SolutionItems) = preProject
+		ERROR.md = ERROR.md
 		README.md = README.md
 	EndProjectSection
 EndProject
