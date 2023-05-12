@@ -1,15 +1,12 @@
 ﻿//
 // https://learn.microsoft.com/fr-fr/dotnet/maui/platform-integration/storage/file-picker?view=net-maui-7.0&tabs=android
 //
+// The External memory application space : FileSystem.Current.AppDataDirectory
+//
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
-using CommunityToolkit.Mvvm.Messaging.Messages;
-using System.Windows.Input;
-using System.Threading;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.Maui.Storage;
 using SoDevLog;
+using System.Windows.Input;
 
 namespace MauiAppToolkit.ViewModels;
 
@@ -33,26 +30,42 @@ public sealed class MainViewModel : ObservableObject
         ConsoleText += time + message + Environment.NewLine;
     }
 
+    public void SendConsole(bool date, string message)
+    {
+        ConsoleText += message + Environment.NewLine;
+
+        if (date == true)
+        {
+            // Add time to console message
+            string time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ff") + " : ";
+            String.Concat(time, ConsoleText);
+        }
+    }
+
     //--------------------------------------------
 
-    private static bool FileOpenned = false; // by Dialog Box
+    private FileResult resultFilePicker = null;
+
+    private static bool fileGettedByDialogBox = false; // Open by Dialog Box
+
+    private string externalStorageDirectory = null; // mean we are on Windows
 
     // UI Binding properties
 
     private static string _textBoxFileName;
     public string TextBoxFileName
     {
-        set 
-        { 
-            if (SetProperty(ref _textBoxFileName, value) )
+        set
+        {
+            if (SetProperty(ref _textBoxFileName, value))
             {
-                FileOpenned = false;
+                fileGettedByDialogBox = false;
             }
         }
         get { return _textBoxFileName; }
     }
 
-    
+
     private static string _textBoxFileNamePlaceholder;
     public string TextBoxFileNamePlaceholder
     {
@@ -67,7 +80,7 @@ public sealed class MainViewModel : ObservableObject
         get { return _textToUser; }
     }
 
-    
+
     private static string _placeholderTextToUser;
     public string PlaceholderTextToUser
     {
@@ -100,11 +113,28 @@ public sealed class MainViewModel : ObservableObject
         _textBoxFileName = "FileName.txt"; // nom du fichier de l'utilisateur par défaut
         _textBoxFileNamePlaceholder = "File Name :";
         _textToUser = "";
-        _placeholderTextToUser = "Text for user alter";
+        _placeholderTextToUser = "Text for user altert";
         _editorFileText = "File's Content that may be saved...";
         _checkBoxSupprimerBakChecked = true;
 
         SendConsole("Application started and ready.");
+        SendConsole(String.Format("External memory application space: FileSystem.Current.AppDataDirectory"));
+        SendConsole(String.Format("{0}", FileSystem.Current.AppDataDirectory));
+        SendConsole(String.Format("AppDomain.CurrentDomain.BaseDirectory:"));
+        SendConsole(String.Format("{0}", AppDomain.CurrentDomain.BaseDirectory.ToString()));
+
+        //
+        // Find nothing else that works
+        //
+        if (DeviceInfo.Current.Platform == DevicePlatform.Android)
+        {
+            externalStorageDirectory = "/storage/emulated/0/Android/data/com.sodevlog.mauiapptoolkit/";
+
+            // No! Can't this directory does not exist should create it ... pfff
+            //externalStorageDirectory = "/storage/emulated/0/Android/data/com.sodevlog.mauiapptoolkit/files/";
+            //externalStorageDirectory = "/data/com.sodevlog.mauiapptoolkit/files/";
+        }
+
         SetupCommands();
     }
 
@@ -118,11 +148,79 @@ public sealed class MainViewModel : ObservableObject
     {
         SendConsole("Begin - OpenFile");
 
-        // _BRY_
-        string cacheDir = FileSystem.Current.CacheDirectory;
-        SendConsole(String.Format("FileSystem.Current.CacheDirectory: {0}", cacheDir));
-        string mainDir = FileSystem.Current.AppDataDirectory;
-        SendConsole(String.Format("FileSystem.Current.AppDataDirectory: {0}", mainDir));
+        if (false)
+        {
+            // TODO: _BRY_
+            string cacheDir = FileSystem.Current.CacheDirectory;
+            // FileSystem.Current.CacheDirectory:
+            // C:\Users\Mabyre\AppData\Local\Packages\d761835c-b769-4b75-815a-8516e7766911_9zz4h110yvjzm\LocalCache
+            SendConsole(String.Format("FileSystem.Current.CacheDirectory: {0}", cacheDir));
+            // FileSystem.Current.AppDataDirectory:
+            // C:\Users\Mabyre\AppData\Local\Packages\d761835c-b769-4b75-815a-8516e7766911_9zz4h110yvjzm\LocalState
+            string mainDir = FileSystem.Current.AppDataDirectory;
+            SendConsole(String.Format("FileSystem.Current.AppDataDirectory: {0}", mainDir));
+
+            // User folder choice
+            //string initialPath = "DCIM"; 
+            //string initialPath = "ANE-LX1";
+            //var folderResult = await FolderPicker.PickAsync(initialPath, CancellationToken.None);
+            //if (folderResult.IsSuccessful)
+            //{
+            //    var filesCount = Directory.EnumerateFiles(folderResult.Folder.Path).Count();
+            //    SendConsole(String.Format("Folder.Name:{0}", folderResult.Folder.Name));
+            //    SendConsole(String.Format("Folder.Path: {0}", folderResult.Folder.Path));
+            //    SendConsole(String.Format("filecount: {0}", filesCount));
+            //}
+            //else
+            //{
+            //    SendConsole("Folder choice UnSucessful");
+            //}
+
+            // Get the file path for the file you want to read/write
+            string filePath = FileSystem.AppDataDirectory + "/MyFile.txt";
+            SendConsole(false, String.Format("FileSystem.AppDataDirectory: {0}", filePath));
+
+            // Write the file content to the app data directory
+            //System.IO.Path.Combine targetFile:
+            //C:\Users\Mabyre\AppData\Local\Packages\d761835c-b769-4b75-815a-8516e7766911_9zz4h110yvjzm\LocalState\FileName.txt
+            string targetFile = System.IO.Path.Combine(FileSystem.Current.AppDataDirectory, "FileName");
+            SendConsole(String.Format("System.IO.Path.Combine targetFile: {0}", targetFile));
+
+            //2023-05-11 10:47:29.31 : Application started and ready.
+            //2023-05-11 10:47:37.17 : Begin - OpenFile
+            //2023-05-11 10:47:37.18 : FileSystem.Current.CacheDirectory: /data/user/0/com.companyname.mauiapptoolkit/cache
+            //2023-05-11 10:47:37.18 : FileSystem.Current.AppDataDirectory: /data/user/0/com.companyname.mauiapptoolkit/files
+            //FileSystem.AppDataDirectory: /data/user/0/com.companyname.mauiapptoolkit/files/MyFile.txt
+            //2023-05-11 10:47:37.18 : System.IO.Path.Combine targetFile: /data/user/0/com.companyname.mauiapptoolkit/files/FileName
+            //2023-05-11 10:47:40.00 : End - Try OpenFile : /storage/emulated/0/Android/data/com.companyname.mauiapptoolkit/cache/2203693cc04e0be7f4f024d5f9499e13/906fe8a1b2dc4b50a73e6c5b239b588a/Recruteur.cyp
+            //2023-05-11 10:47:40.06 : Read and display file "/storage/emulated/0/Android/data/com.companyname.mauiapptoolkit/cache/2203693cc04e0be7f4f024d5f9499e13/906fe8a1b2dc4b50a73e6c5b239b588a/Recruteur.cyp"
+
+            // Very bad plateforme dependant solution given by ChatGPT
+            //using Android.App;
+            //var path1 = Application.Context.GetExternalFilesDir(null).AbsolutePath;
+            //SendConsole(String.Format("Android.App.Application: {0}", path1));
+
+            //[Obsolete]
+            //using System;
+            //// ...
+            //string path = null;
+            //switch (Device.RuntimePlatform)
+            //{
+            //    case Device.Android:
+            //        path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            //        break;
+            //    case Device.iOS:
+            //        path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            //        break;
+            //    case Device.tvOS:
+            //        path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            //        break;
+            //    case Device.UWP:
+            //        path = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
+            //        break;
+            //}
+
+        } // if (false)
 
         //
         // 1 - Open Dialog Box to read the File 
@@ -130,11 +228,11 @@ public sealed class MainViewModel : ObservableObject
 
         CancellationToken cancellationToken = CancellationToken.None;
 
-        var customFileType = new FilePickerFileType(
+        FilePickerFileType customFileType = new FilePickerFileType(
                 new Dictionary<DevicePlatform, IEnumerable<string>>
                 {
                     { DevicePlatform.iOS, new[] { "public.my.comic.extension" } }, // UTType values
-                    { DevicePlatform.Android, new[] { "application/comics", "*/*" } }, // MIME type
+                    { DevicePlatform.Android, new[] { "*/*" } }, // MIME type
                     { DevicePlatform.WinUI, new[] { ".txt", ".bak", "*" } }, // file extension
                     { DevicePlatform.Tizen, new[] { "*/*" } },
                     { DevicePlatform.macOS, new[] { "cbr", "cbz" } }, // UTType values
@@ -148,12 +246,12 @@ public sealed class MainViewModel : ObservableObject
 
         // 1.1 - Open Dialog Box
 
-        FileResult result = await FilePicker.Default.PickAsync(options);
+        resultFilePicker = await FilePicker.Default.PickAsync(options);
 
-        if (result != null)
+        if (resultFilePicker != null)
         {
-            TextBoxFileName = result.FullPath;
-            FileOpenned = true;
+            TextBoxFileName = resultFilePicker.FullPath;
+            fileGettedByDialogBox = true;
             SendConsole(String.Format("End - Try OpenFile : {0}", TextBoxFileName));
         }
         else
@@ -205,6 +303,10 @@ public sealed class MainViewModel : ObservableObject
 
     private async void SaveFile()
     {
+        //
+        // 1 - Otherwise nothing to be done
+        //
+
         if (TextBoxFileName == "")
         {
             displayToConsole("There must be a File name.");
@@ -225,28 +327,16 @@ public sealed class MainViewModel : ObservableObject
         // 2 - Creating a new file
         //
 
-        // If the File had been opened by Dialog Box Open there is the path in it
-        if (FileOpenned == true)
+        if (fileGettedByDialogBox == false)
         {
-            // On sait que le fichier existe puisque l'on vient de l'ouvrir
-            // Si un ancien fichier .bak existe on le supprime
-            if (File.Exists(TextBoxFileName + ".bak"))
-            {
-                File.Delete(TextBoxFileName + ".bak");
-                displayToConsole("Suppression du fichier \"" + TextBoxFileName + "\"");
-            }
-            File.Move(TextBoxFileName, TextBoxFileName + ".bak");
-            displayToConsole("Sauvegarde du fichier .bak");
-        }
-        else
-        {
+            // User want to save a New File writing his name by hand in TextBoxFileName
             string fileName = TextBoxFileName;
-
-            // Le nom du fichier est seul sans repertoire entré par l'utilisateur
-            if (Strings.StringSearchWord(TextBoxFileName, "\\") == false)
+            if (containPath(fileName) == false)
             {
-                // On ajoute le repertoire de base de l'application
-                TextBoxFileName = AppDomain.CurrentDomain.BaseDirectory.ToString() + TextBoxFileName;
+                if (externalStorageDirectory == null)
+                    TextBoxFileName = Path.Combine(FileSystem.Current.AppDataDirectory, TextBoxFileName);
+                else
+                    TextBoxFileName = externalStorageDirectory + TextBoxFileName;
             }
 
             // Attention l'utilisateur écrase un fichier existant
@@ -261,7 +351,7 @@ public sealed class MainViewModel : ObservableObject
                         "Oui",
                         "Non");
 
-                if ( answer == false )
+                if (answer == false)
                 {
                     displayToConsole(messageFileAlreadyExist);
                     TextToUser = "";
@@ -271,7 +361,7 @@ public sealed class MainViewModel : ObservableObject
             }
 
             // Save the File .bak
-            // but if file not already exist, don't create .bak
+            // if file not already exist, don't create .bak
             if (File.Exists(TextBoxFileName))
             {
                 if (File.Exists(TextBoxFileName + ".bak"))
@@ -283,20 +373,44 @@ public sealed class MainViewModel : ObservableObject
                 displayToConsole("Save file .bak");
             }
         }
+        else // The File had been opened by Dialog Box Open there is a the path in it
+        {
+            // The file may come from very far away needed to be saved in : externalStorageDirectory
+            if (externalStorageDirectory != null)
+            {
+                char[] delimiterChars = { '/', '\\' };
+                string[] name = TextBoxFileName.Split( delimiterChars );
+                TextBoxFileName = externalStorageDirectory + name[ name.Length - 1];
+            }
 
-        // 2.1 - Maintenant on peut sauver le bon fichier
+            // On sait que le fichier existe puisque l'on vient de l'ouvrir
+            // Si un ancien fichier .bak existe on le supprime
+            if (File.Exists(TextBoxFileName + ".bak"))
+            {
+                displayToConsole(String.Format("Old File Exist: {0}", TextBoxFileName + ".bak"));
+
+                File.Delete(TextBoxFileName + ".bak");
+                displayToConsole(String.Format("Old File deleted: {0}", TextBoxFileName + ".bak"));
+
+                File.Move(TextBoxFileName, TextBoxFileName + ".bak");
+                displayToConsole("New File .bak saved");
+            }
+        }
+
+        // 2.1 - Maintenant on peut ouvrir le bon fichier
 
         FileStream fs;
         try
         {
             fs = new FileStream(TextBoxFileName, FileMode.Create, FileAccess.Write);
         }
-        catch
+        catch (Exception ex)
         {
-            displayToConsole("Impossible to create the File.");
+            displayToConsole(String.Format("Exception: {0}", ex.Message));
             return;
         }
 
+        PlaceholderTextToUser = "File created.";
         displayToConsole("File created.");
 
         //
@@ -306,16 +420,18 @@ public sealed class MainViewModel : ObservableObject
         byte[] fileInBytes = new byte[EditorFileText.Length];
         fileInBytes = Strings.StringToByteArray(EditorFileText);
 
+        // 3.1 - Real Creation File
+        
         fs.Write(fileInBytes, 0, EditorFileText.Length);
         fs.Close();
 
         displayToConsole("File in Byte read \"" + TextBoxFileName + "\"");
 
-        if ( CheckBoxSupprimerBakChecked == true)
+        if ( CheckBoxSupprimerBakChecked == true )
         {
             if (!File.Exists(TextBoxFileName + ".bak"))
             {
-                displayToConsole("Checkbox checked but the file \"" + TextBoxFileName + ".bak" + "\" does not exist.");
+                displayToConsole("Checkbox checked but the file \"" + TextBoxFileName + ".bak" + "\" does not already exist.");
                 return;
             }
 
@@ -329,5 +445,15 @@ public sealed class MainViewModel : ObservableObject
     public void displayToConsole(string message)
     {
         SendConsole(message);
+    }
+
+    bool containPath(string path)
+    {
+        bool result = false;
+
+        if ( path.Contains('/') || path.Contains('\\') )
+            result = true;
+
+        return result;
     }
 }
