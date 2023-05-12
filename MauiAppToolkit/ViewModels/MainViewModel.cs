@@ -1,6 +1,8 @@
 ﻿//
 // https://learn.microsoft.com/fr-fr/dotnet/maui/platform-integration/storage/file-picker?view=net-maui-7.0&tabs=android
 //
+// https://learn.microsoft.com/en-us/xamarin/android/platform/files/external-storage?tabs=windows
+//
 // The External memory application space : FileSystem.Current.AppDataDirectory
 //
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -48,6 +50,7 @@ public sealed class MainViewModel : ObservableObject
 
     private static bool fileGettedByDialogBox = false; // Open by Dialog Box
 
+    // All what I saw in doc does not work!
     private string externalStorageDirectory = null; // mean we are on Windows
 
 #region UI_Binding_properties
@@ -129,7 +132,7 @@ public sealed class MainViewModel : ObservableObject
 
             externalStorageDirectory = "/storage/emulated/0/Android/data/com.sodevlog.mauiapptoolkit/";
 
-            // No! Can't this directory does not exist should create it ... pfff
+            // Can't use these! "files" directory does not exist. Should I create it ... pfff
             //externalStorageDirectory = "/storage/emulated/0/Android/data/com.sodevlog.mauiapptoolkit/files/";
             //externalStorageDirectory = "/data/com.sodevlog.mauiapptoolkit/files/";
         }
@@ -149,92 +152,16 @@ public sealed class MainViewModel : ObservableObject
     {
         SendConsole("Begin - OpenFile");
 
-        if (false)
-        {
-            // TODO: _BRY_
-            string cacheDir = FileSystem.Current.CacheDirectory;
-            // FileSystem.Current.CacheDirectory:
-            // C:\Users\Mabyre\AppData\Local\Packages\d761835c-b769-4b75-815a-8516e7766911_9zz4h110yvjzm\LocalCache
-            SendConsole(String.Format("FileSystem.Current.CacheDirectory: {0}", cacheDir));
-            // FileSystem.Current.AppDataDirectory:
-            // C:\Users\Mabyre\AppData\Local\Packages\d761835c-b769-4b75-815a-8516e7766911_9zz4h110yvjzm\LocalState
-            string mainDir = FileSystem.Current.AppDataDirectory;
-            SendConsole(String.Format("FileSystem.Current.AppDataDirectory: {0}", mainDir));
-
-            // User folder choice
-            //string initialPath = "DCIM"; 
-            //string initialPath = "ANE-LX1";
-            //var folderResult = await FolderPicker.PickAsync(initialPath, CancellationToken.None);
-            //if (folderResult.IsSuccessful)
-            //{
-            //    var filesCount = Directory.EnumerateFiles(folderResult.Folder.Path).Count();
-            //    SendConsole(String.Format("Folder.Name:{0}", folderResult.Folder.Name));
-            //    SendConsole(String.Format("Folder.Path: {0}", folderResult.Folder.Path));
-            //    SendConsole(String.Format("filecount: {0}", filesCount));
-            //}
-            //else
-            //{
-            //    SendConsole("Folder choice UnSucessful");
-            //}
-
-            // Get the file path for the file you want to read/write
-            string filePath = FileSystem.AppDataDirectory + "/MyFile.txt";
-            SendConsole(false, String.Format("FileSystem.AppDataDirectory: {0}", filePath));
-
-            // Write the file content to the app data directory
-            //System.IO.Path.Combine targetFile:
-            //C:\Users\Mabyre\AppData\Local\Packages\d761835c-b769-4b75-815a-8516e7766911_9zz4h110yvjzm\LocalState\FileName.txt
-            string targetFile = System.IO.Path.Combine(FileSystem.Current.AppDataDirectory, "FileName");
-            SendConsole(String.Format("System.IO.Path.Combine targetFile: {0}", targetFile));
-
-            //2023-05-11 10:47:29.31 : Application started and ready.
-            //2023-05-11 10:47:37.17 : Begin - OpenFile
-            //2023-05-11 10:47:37.18 : FileSystem.Current.CacheDirectory: /data/user/0/com.companyname.mauiapptoolkit/cache
-            //2023-05-11 10:47:37.18 : FileSystem.Current.AppDataDirectory: /data/user/0/com.companyname.mauiapptoolkit/files
-            //FileSystem.AppDataDirectory: /data/user/0/com.companyname.mauiapptoolkit/files/MyFile.txt
-            //2023-05-11 10:47:37.18 : System.IO.Path.Combine targetFile: /data/user/0/com.companyname.mauiapptoolkit/files/FileName
-            //2023-05-11 10:47:40.00 : End - Try OpenFile : /storage/emulated/0/Android/data/com.companyname.mauiapptoolkit/cache/2203693cc04e0be7f4f024d5f9499e13/906fe8a1b2dc4b50a73e6c5b239b588a/Recruteur.cyp
-            //2023-05-11 10:47:40.06 : Read and display file "/storage/emulated/0/Android/data/com.companyname.mauiapptoolkit/cache/2203693cc04e0be7f4f024d5f9499e13/906fe8a1b2dc4b50a73e6c5b239b588a/Recruteur.cyp"
-
-            // Very bad plateforme dependant solution given by ChatGPT
-            //using Android.App;
-            //var path1 = Application.Context.GetExternalFilesDir(null).AbsolutePath;
-            //SendConsole(String.Format("Android.App.Application: {0}", path1));
-
-            //[Obsolete]
-            //using System;
-            //// ...
-            //string path = null;
-            //switch (Device.RuntimePlatform)
-            //{
-            //    case Device.Android:
-            //        path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            //        break;
-            //    case Device.iOS:
-            //        path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            //        break;
-            //    case Device.tvOS:
-            //        path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            //        break;
-            //    case Device.UWP:
-            //        path = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
-            //        break;
-            //}
-
-        } // if (false)
-
         //
         // 1 - Open Dialog Box to read the File 
         //
-
-        CancellationToken cancellationToken = CancellationToken.None;
 
         FilePickerFileType customFileType = new FilePickerFileType(
                 new Dictionary<DevicePlatform, IEnumerable<string>>
                 {
                     { DevicePlatform.iOS, new[] { "public.my.comic.extension" } }, // UTType values
                     { DevicePlatform.Android, new[] { "*/*" } }, // MIME type
-                    { DevicePlatform.WinUI, new[] { "*", "*.txt", "*.odt" } }, // file extension
+                    { DevicePlatform.WinUI, new[] { "*.txt", "*.odt" } }, // file extension
                     { DevicePlatform.Tizen, new[] { "*/*" } },
                     { DevicePlatform.macOS, new[] { "cbr", "cbz" } }, // UTType values
                 });
