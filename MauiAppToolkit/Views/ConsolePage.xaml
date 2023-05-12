@@ -20,7 +20,8 @@
                 <Editor x:Name="consoleEditor"
                         Text="{Binding ConsoleText}"
                         FontSize="9"
-                        Placeholder="This is the console..." IsReadOnly="True" 
+                        Placeholder="This is the console..." 
+                        IsReadOnly="False" 
                     />
             </Border>
         </Grid>
