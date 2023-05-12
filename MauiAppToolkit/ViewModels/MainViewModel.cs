@@ -1,6 +1,8 @@
 ﻿//
 // https://learn.microsoft.com/fr-fr/dotnet/maui/platform-integration/storage/file-picker?view=net-maui-7.0&tabs=android
 //
+// https://learn.microsoft.com/en-us/xamarin/android/platform/files/external-storage?tabs=windows
+//
 // The External memory application space : FileSystem.Current.AppDataDirectory
 //
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -48,6 +50,7 @@ public sealed partial class MainViewModel : ObservableObject
 
     private static bool fileGettedByDialogBox = false; // Open by Dialog Box
 
+    // All what I saw in doc does not work!
     private string externalStorageDirectory = null; // mean we are on Windows
 
     // UI Binding properties
@@ -128,7 +131,7 @@ public sealed partial class MainViewModel : ObservableObject
         {
             externalStorageDirectory = "/storage/emulated/0/Android/data/com.sodevlog.mauiapptoolkit/";
 
-            // No! Can't this directory does not exist should create it ... pfff
+            // Can't use these! "files" directory does not exist. Should I create it ... pfff
             //externalStorageDirectory = "/storage/emulated/0/Android/data/com.sodevlog.mauiapptoolkit/files/";
             //externalStorageDirectory = "/data/com.sodevlog.mauiapptoolkit/files/";
         }
@@ -142,13 +145,21 @@ public sealed partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public async Task OpenFile()
+    public async Task OpenFile() // should be named OpenFileCommand in xaml
     {
         SendConsole("Begin - OpenFile");
 
         if (false)
         {
-            // TODO: _BRY_
+            string folder1 = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            SendConsole(String.Format("SpecialFolder.Personal): {0}", folder1));
+
+            folder1 = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            SendConsole(String.Format("SpecialFolder.ApplicationData): {0}", folder1));
+
+            folder1 = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            SendConsole(String.Format("SpecialFolder.LocalApplicationData): {0}", folder1));
+
             string cacheDir = FileSystem.Current.CacheDirectory;
             // FileSystem.Current.CacheDirectory:
             // C:\Users\Mabyre\AppData\Local\Packages\d761835c-b769-4b75-815a-8516e7766911_9zz4h110yvjzm\LocalCache
@@ -158,40 +169,47 @@ public sealed partial class MainViewModel : ObservableObject
             string mainDir = FileSystem.Current.AppDataDirectory;
             SendConsole(String.Format("FileSystem.Current.AppDataDirectory: {0}", mainDir));
 
-            // User folder choice
-            //string initialPath = "DCIM"; 
-            //string initialPath = "ANE-LX1";
-            //var folderResult = await FolderPicker.PickAsync(initialPath, CancellationToken.None);
-            //if (folderResult.IsSuccessful)
-            //{
-            //    var filesCount = Directory.EnumerateFiles(folderResult.Folder.Path).Count();
-            //    SendConsole(String.Format("Folder.Name:{0}", folderResult.Folder.Name));
-            //    SendConsole(String.Format("Folder.Path: {0}", folderResult.Folder.Path));
-            //    SendConsole(String.Format("filecount: {0}", filesCount));
-            //}
-            //else
-            //{
-            //    SendConsole("Folder choice UnSucessful");
-            //}
+            //useOfPickerFoler();
 
             // Get the file path for the file you want to read/write
             string filePath = FileSystem.AppDataDirectory + "/MyFile.txt";
-            SendConsole(false, String.Format("FileSystem.AppDataDirectory: {0}", filePath));
+            SendConsole(String.Format("FileSystem.AppDataDirectory: {0}", filePath));
 
             // Write the file content to the app data directory
             //System.IO.Path.Combine targetFile:
             //C:\Users\Mabyre\AppData\Local\Packages\d761835c-b769-4b75-815a-8516e7766911_9zz4h110yvjzm\LocalState\FileName.txt
-            string targetFile = System.IO.Path.Combine(FileSystem.Current.AppDataDirectory, "FileName");
+            string targetFile = System.IO.Path.Combine(FileSystem.Current.AppDataDirectory, "FileName.txt");
             SendConsole(String.Format("System.IO.Path.Combine targetFile: {0}", targetFile));
 
-            //2023-05-11 10:47:29.31 : Application started and ready.
-            //2023-05-11 10:47:37.17 : Begin - OpenFile
-            //2023-05-11 10:47:37.18 : FileSystem.Current.CacheDirectory: /data/user/0/com.companyname.mauiapptoolkit/cache
-            //2023-05-11 10:47:37.18 : FileSystem.Current.AppDataDirectory: /data/user/0/com.companyname.mauiapptoolkit/files
-            //FileSystem.AppDataDirectory: /data/user/0/com.companyname.mauiapptoolkit/files/MyFile.txt
-            //2023-05-11 10:47:37.18 : System.IO.Path.Combine targetFile: /data/user/0/com.companyname.mauiapptoolkit/files/FileName
-            //2023-05-11 10:47:40.00 : End - Try OpenFile : /storage/emulated/0/Android/data/com.companyname.mauiapptoolkit/cache/2203693cc04e0be7f4f024d5f9499e13/906fe8a1b2dc4b50a73e6c5b239b588a/Recruteur.cyp
-            //2023-05-11 10:47:40.06 : Read and display file "/storage/emulated/0/Android/data/com.companyname.mauiapptoolkit/cache/2203693cc04e0be7f4f024d5f9499e13/906fe8a1b2dc4b50a73e6c5b239b588a/Recruteur.cyp"
+            // Windows
+            //2023-05-12 11:31:14.90 : Application started and ready.
+            //2023-05-12 11:31:14.91 : External memory application space: FileSystem.Current.AppDataDirectory
+            //2023-05-12 11:31:14.97 : C:\Users\Mabyre\AppData\Local\Packages\d761835c-b769-4b75-815a-8516e7766911_9zz4h110yvjzm\LocalState
+            //2023-05-12 11:31:14.97 : AppDomain.CurrentDomain.BaseDirectory:
+            //2023-05-12 11:31:14.97 : C:\Users\Mabyre\Documents\Visual Studio 2022\Samples\MAUI\MauiAppToolkit\MauiAppToolkit\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\AppX\
+            //2023-05-12 11:31:21.82 : Begin - OpenFile
+            //2023-05-12 11:31:21.82 : SpecialFolder.Personal): C:\Users\Mabyre\Documents
+            //2023-05-12 11:31:21.82 : SpecialFolder.ApplicationData): C:\Users\Mabyre\AppData\Roaming
+            //2023-05-12 11:31:21.82 : SpecialFolder.LocalApplicationData): C:\Users\Mabyre\AppData\Local
+            //2023-05-12 11:31:26.20 : FileSystem.Current.CacheDirectory: C:\Users\Mabyre\AppData\Local\Packages\d761835c-b769-4b75-815a-8516e7766911_9zz4h110yvjzm\LocalCache
+            //2023-05-12 11:31:26.20 : FileSystem.Current.AppDataDirectory: C:\Users\Mabyre\AppData\Local\Packages\d761835c-b769-4b75-815a-8516e7766911_9zz4h110yvjzm\LocalState
+            //2023-05-12 11:31:26.21 : FileSystem.AppDataDirectory: C:\Users\Mabyre\AppData\Local\Packages\d761835c-b769-4b75-815a-8516e7766911_9zz4h110yvjzm\LocalState/MyFile.txt
+            //2023-05-12 11:31:26.21 : System.IO.Path.Combine targetFile: C:\Users\Mabyre\AppData\Local\Packages\d761835c-b769-4b75-815a-8516e7766911_9zz4h110yvjzm\LocalState\FileName.txt
+
+            // Android
+            //2023-05-12 11:36:15.11 : Application started and ready.
+            //2023-05-12 11:36:15.12 : External memory application space: FileSystem.Current.AppDataDirectory
+            //2023-05-12 11:36:15.13 : /data/user/0/com.sodevlog.mauiapptoolkit/files
+            //2023-05-12 11:36:15.13 : AppDomain.CurrentDomain.BaseDirectory:
+            //2023-05-12 11:36:15.13 : /data/user/0/com.sodevlog.mauiapptoolkit/files
+            //2023-05-12 11:36:20.07 : Begin - OpenFile
+            //2023-05-12 11:36:20.09 : SpecialFolder.Personal): /data/user/0/com.sodevlog.mauiapptoolkit/files
+            //2023-05-12 11:36:20.09 : SpecialFolder.ApplicationData): /data/user/0/com.sodevlog.mauiapptoolkit/files/.config
+            //2023-05-12 11:36:20.09 : SpecialFolder.LocalApplicationData): /data/user/0/com.sodevlog.mauiapptoolkit/files
+            //2023-05-12 11:36:20.10 : FileSystem.Current.CacheDirectory: /data/user/0/com.sodevlog.mauiapptoolkit/cache
+            //2023-05-12 11:36:20.10 : FileSystem.Current.AppDataDirectory: /data/user/0/com.sodevlog.mauiapptoolkit/files
+            //2023-05-12 11:36:20.10 : FileSystem.AppDataDirectory: /data/user/0/com.sodevlog.mauiapptoolkit/files/MyFile.txt
+            //2023-05-12 11:36:20.10 : System.IO.Path.Combine targetFile: /data/user/0/com.sodevlog.mauiapptoolkit/files/FileName.txt
 
             // Very bad plateforme dependant solution given by ChatGPT
             //using Android.App;
@@ -218,13 +236,13 @@ public sealed partial class MainViewModel : ObservableObject
             //        break;
             //}
 
+            return;
+
         } // if (false)
 
         //
         // 1 - Open Dialog Box to read the File 
         //
-
-        CancellationToken cancellationToken = CancellationToken.None;
 
         FilePickerFileType customFileType = new FilePickerFileType(
                 new Dictionary<DevicePlatform, IEnumerable<string>>
@@ -298,6 +316,7 @@ public sealed partial class MainViewModel : ObservableObject
 
         displayToConsole("Read and display file \"" + TextBoxFileName + "\"");
     }
+
 
     private async void SaveFile()
     {
@@ -454,4 +473,24 @@ public sealed partial class MainViewModel : ObservableObject
 
         return result;
     }
+
+    private async Task useOfPickerFoler()
+    {
+        // User folder choice
+        //string initialPath = "DCIM"; 
+        string initialPath = "ANE-LX1";
+        var folderResult = await CommunityToolkit.Maui.Storage.FolderPicker.PickAsync(initialPath, CancellationToken.None);
+        if (folderResult.IsSuccessful)
+        {
+            var filesCount = Directory.EnumerateFiles(folderResult.Folder.Path).Count();
+            SendConsole(String.Format("Folder.Name:{0}", folderResult.Folder.Name));
+            SendConsole(String.Format("Folder.Path: {0}", folderResult.Folder.Path));
+            SendConsole(String.Format("filecount: {0}", filesCount));
+        }
+        else
+        {
+            SendConsole("Folder choice UnSucessful");
+        }
+    }
 }
+
