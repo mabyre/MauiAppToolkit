@@ -50,7 +50,7 @@ public sealed class MainViewModel : ObservableObject
 
     private string externalStorageDirectory = null; // mean we are on Windows
 
-    // UI Binding properties
+#region UI_Binding_properties
 
     private static string _textBoxFileName;
     public string TextBoxFileName
@@ -102,6 +102,8 @@ public sealed class MainViewModel : ObservableObject
         get { return _checkBoxSupprimerBakChecked; }
     }
 
+#endregion
+
     // Command Binding properties
 
     public ICommand OpenFileCommand { private set; get; }
@@ -118,22 +120,21 @@ public sealed class MainViewModel : ObservableObject
         _checkBoxSupprimerBakChecked = true;
 
         SendConsole("Application started and ready.");
-        SendConsole(String.Format("External memory application space: FileSystem.Current.AppDataDirectory"));
-        SendConsole(String.Format("{0}", FileSystem.Current.AppDataDirectory));
-        SendConsole(String.Format("AppDomain.CurrentDomain.BaseDirectory:"));
-        SendConsole(String.Format("{0}", AppDomain.CurrentDomain.BaseDirectory.ToString()));
 
         //
         // Find nothing else that works
         //
         if (DeviceInfo.Current.Platform == DevicePlatform.Android)
         {
+
             externalStorageDirectory = "/storage/emulated/0/Android/data/com.sodevlog.mauiapptoolkit/";
 
             // No! Can't this directory does not exist should create it ... pfff
             //externalStorageDirectory = "/storage/emulated/0/Android/data/com.sodevlog.mauiapptoolkit/files/";
             //externalStorageDirectory = "/data/com.sodevlog.mauiapptoolkit/files/";
         }
+
+        SendConsole(String.Format("Running Plateform: {0}", DeviceInfo.Current.Platform.ToString()));
 
         SetupCommands();
     }
@@ -233,7 +234,7 @@ public sealed class MainViewModel : ObservableObject
                 {
                     { DevicePlatform.iOS, new[] { "public.my.comic.extension" } }, // UTType values
                     { DevicePlatform.Android, new[] { "*/*" } }, // MIME type
-                    { DevicePlatform.WinUI, new[] { ".txt", ".bak", "*" } }, // file extension
+                    { DevicePlatform.WinUI, new[] { "*", "*.txt", "*.odt" } }, // file extension
                     { DevicePlatform.Tizen, new[] { "*/*" } },
                     { DevicePlatform.macOS, new[] { "cbr", "cbz" } }, // UTType values
                 });
