@@ -8,6 +8,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SoDevLog;
 using System.Windows.Input;
+using static System.Environment;
 
 namespace MauiAppToolkit.ViewModels;
 
@@ -122,21 +123,73 @@ public sealed class MainViewModel : ObservableObject
         _checkBoxSupprimerBakChecked = true;
 
         SendConsole("Application started and ready.");
+        SendConsole(String.Format("Running Plateform: {0}", DeviceInfo.Current.Platform.ToString()));
+
+        SendConsole(false, ""); // separator
+
+        //
+        //
+        // To know where we are...
+        //
+        //
+        string filePersonalPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+        SendConsole(false, String.Format("SpecialFolder.Personal: {0}", filePersonalPath));
+
+        string fileApplicationDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        SendConsole(false, String.Format("SpecialFolder.ApplicationData: {0}", fileApplicationDataPath));
+
+        if (Directory.Exists(filePersonalPath))
+        {
+            SendConsole(false, "SpecialFolder.Personal: Ok");
+        }
+        else
+        {
+            SendConsole(false, "SpecialFolder.Personal: NO-Ok");
+        }
+
+        if (Directory.Exists(fileApplicationDataPath))
+        {
+            SendConsole(false, "SpecialFolder.ApplicationData: Ok");
+        }
+        else
+        {
+            SendConsole(false, "SpecialFolder.ApplicationData: NO-Ok");
+        }
 
         //
         // Find nothing else that works
         //
         if (DeviceInfo.Current.Platform == DevicePlatform.Android)
         {
-
             externalStorageDirectory = "/storage/emulated/0/Android/data/com.sodevlog.mauiapptoolkit/";
+            SendConsole(false, String.Format("ExternalStorageDirectory: {0}", externalStorageDirectory));
 
             // Can't use these! "files" directory does not exist. Should I create it ... pfff
             //externalStorageDirectory = "/storage/emulated/0/Android/data/com.sodevlog.mauiapptoolkit/files/";
             //externalStorageDirectory = "/data/com.sodevlog.mauiapptoolkit/files/";
+
+            if (Directory.Exists(externalStorageDirectory)) 
+            {
+                SendConsole(false, "ExternalStorageDirectory: Ok");
+            }
+            else
+            {
+                SendConsole(false, "ExternalStorageDirectory: NO-Ok");
+            }
+
+            if (Directory.Exists(externalStorageDirectory + "files"))
+            {
+                SendConsole(false, "ExternalStorageDirectory.files: Ok");
+            }
+            else
+            {
+                SendConsole(false, "ExternalStorageDirectory.fles: NO-Ok");
+            }
         }
 
-        SendConsole(String.Format("Running Plateform: {0}", DeviceInfo.Current.Platform.ToString()));
+        //if (DeviceInfo.Current.Platform == DevicePlatform.WinUI)
+        //{
+        //}
 
         SetupCommands();
     }
