@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiAppToolkit.MainPage"
-             Title="Ouvrir un fichier">
+             Title="Open a File">
     <!--
         checkBoxSupressBak
         editorFile
@@ -15,64 +15,90 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <Border Style="{StaticResource BorderStyleRed}">
-        <VerticalStackLayout Spacing="10" Margin="5">
+    <Grid 
+        Margin="5"
+        ColumnSpacing="5"
+        RowSpacing="10"
+        RowDefinitions="Auto,*,Auto,Auto"
+        ColumnDefinitions="*,*">
 
-            <Border Style="{StaticResource BorderStyleBlue}">
-                <Grid HorizontalOptions="FillAndExpand" Margin="5">
-                    <Entry Text="{Binding TextToUser}"
-                        Placeholder="{Binding PlaceholderTextToUser}"
-                        MinimumWidthRequest="550"
-                        HorizontalOptions="FillAndExpand" 
-                        Keyboard="Text"
-                        />
-                </Grid>
-            </Border>
+        <Border Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource BorderStyleBlue}"/>
+        <Border Grid.Row="1" Grid.ColumnSpan="2" Style="{StaticResource BorderStyleBlue}"/>
+        <Border Grid.Row="2" Grid.Column="0" Style="{StaticResource BorderStyleBlue}"/>
+        <Border Grid.Row="2" Grid.Column="1" Style="{StaticResource BorderStyleGreen}"/>
+        <Border Grid.Row="3" Grid.Column="0" Style="{StaticResource BorderStyleBlue}"/>
+        <Border Grid.Row="3" Grid.Column="1" Style="{StaticResource BorderStyleGreen}"/>
 
-            <Border Style="{StaticResource BorderStyleBlue}">
-                <Grid HeightRequest="265" Margin="5">  
-                    <Editor x:Name="editorFile"
-                        Text="{Binding EditorFileText}"
-                        Placeholder="Contenu du fichier..."
-                        />
-                </Grid>
-            </Border>
+        <StackLayout 
+            Grid.Row="0" 
+            Grid.ColumnSpan="2" 
+            Orientation="Horizontal">
+            
+            <Entry Text="{Binding TextToUser}"
+                Placeholder="{Binding PlaceholderTextToUser}"
+                HorizontalOptions="FillAndExpand" 
+                Keyboard="Text"
+                />
+            
+        </StackLayout>
 
-            <Border Style="{StaticResource BorderStyleBlue}">
-                <Grid ColumnDefinitions="*,40,130" HorizontalOptions="FillAndExpand" Margin="5">
-                    <Entry Grid.Column="0"
-                        Text="{Binding TextBoxFileName}"
-                        Placeholder="{Binding TextBoxFileNamePlaceholder}"
-                        HorizontalOptions="FillAndExpand"
-                        />
-                    <CheckBox x:Name="checkBoxSupressBak" 
-                              Grid.Column="1" 
-                              IsChecked="{Binding CheckBoxSupprimerBakChecked}" 
-                              />
-                    <Label Text="Supp. le .bak" Grid.Column="2"
-                            VerticalOptions="Center"
-                        />
-                </Grid>
-            </Border>
+        <StackLayout 
+            Grid.Row="1" 
+            Grid.ColumnSpan="2" 
+            Orientation="Horizontal">
 
-            <Border Style="{StaticResource BorderStyleRed}">
-                <Grid ColumnDefinitions="*,*" ColumnSpacing="25" Margin="5">
+            <Editor 
+                Text="{Binding EditorFileText}"
+                Placeholder="Contenu du fichier..."
+                HorizontalOptions="FillAndExpand"
+                />
+        
+        </StackLayout>
 
-                    <Button Text="Ouvrir"
-                        FontSize="18"
-                        BorderWidth="2"
-                        Command="{Binding OpenFileCommand}"
-                        />
+        <StackLayout
+            Grid.Row="2"
+            Grid.ColumnSpan="2" 
+            Spacing="5"
+            Margin="10"
+            Orientation="Horizontal">
 
-                    <Button Text="Sauvegarder"
-                        Grid.Column="1"
-                        FontSize="18"
-                        BorderWidth="2"
-                        Command="{Binding SaveFileCommand}"
-                        />
-                </Grid>
-            </Border>
+            <Entry 
+                Text="{Binding TextBoxFileName}"
+                Placeholder="{Binding TextBoxFileNamePlaceholder}"
+                HorizontalOptions="FillAndExpand"
+                />
 
-        </VerticalStackLayout>
-    </Border>
+            <!-- CheckBox Supress File .Bak -->
+            <CheckBox
+                IsChecked="{Binding CheckBoxSupprimerBakChecked}" 
+                />
+
+            <Label 
+                Text="Supp.bak" 
+                HorizontalOptions="End"
+                HorizontalTextAlignment="End"
+                VerticalOptions="Center"
+                />
+
+        </StackLayout>
+
+        <Button 
+            Text="Open"
+            Grid.Row="3"
+            Grid.Column="0"
+            FontSize="18"
+            BorderWidth="2"
+            Command="{Binding OpenFileCommand}"
+            />
+
+        <Button 
+            Text="Save"
+            Grid.Row="3"
+            Grid.Column="1"
+            FontSize="18"
+            BorderWidth="2"
+            Command="{Binding SaveFileCommand}"
+            />
+
+    </Grid>
 </ContentPage>
