@@ -170,7 +170,7 @@ public sealed partial class MainViewModel : ObservableObject
             string mainDir = FileSystem.Current.AppDataDirectory;
             SendConsole(String.Format("FileSystem.Current.AppDataDirectory: {0}", mainDir));
 
-            //useOfPickerFoler();
+            await useOfPickerFoler();
 
             // Get the file path for the file you want to read/write
             string filePath = FileSystem.AppDataDirectory + "/MyFile.txt";
