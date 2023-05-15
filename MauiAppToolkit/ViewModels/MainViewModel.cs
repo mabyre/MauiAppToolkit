@@ -254,19 +254,32 @@ public sealed class MainViewModel : ObservableObject
         // 2 - Creating a new file
         //
 
+        // If the file was opened by the Box Open dialog then it contains the complete directory
         if (fileGettedByDialogBox == false)
         {
             // User want to save a New File writing his name by hand in TextBoxFileName
             string fileName = TextBoxFileName;
-            if (containPath(fileName) == false)
+
+            // There is no path in the file name
+            // we put the path instead of the user
+            //
+            if (containPath(fileName) == false) 
             {
-                if (externalStorageDirectory == null)
+                if (DeviceInfo.Current.Platform == DevicePlatform.WinUI)
+                {
                     TextBoxFileName = Path.Combine(FileSystem.Current.AppDataDirectory, TextBoxFileName);
-                else
+                }
+                else if (DeviceInfo.Current.Platform == DevicePlatform.Android)
+                {
                     TextBoxFileName = externalStorageDirectory + TextBoxFileName;
+                }
+                else 
+                {
+                    SendConsole("ERROR: Plateforme non implémentée!");
+                };
             }
 
-            // Attention l'utilisateur écrase un fichier existant
+            // Warning the user overwrites an existing file
             if (File.Exists(TextBoxFileName))
             {
                 // DialogResult
