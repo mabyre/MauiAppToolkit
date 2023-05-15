@@ -1,6 +1,5 @@
 ﻿//
 // https://learn.microsoft.com/fr-fr/dotnet/maui/platform-integration/storage/file-picker?view=net-maui-7.0&tabs=android
-//
 // https://learn.microsoft.com/en-us/xamarin/android/platform/files/external-storage?tabs=windows
 //
 // The External memory application space : FileSystem.Current.AppDataDirectory
@@ -375,11 +374,11 @@ public sealed class MainViewModel : ObservableObject
         SendConsole(message);
     }
 
-    bool containPath(string path)
+    bool containPath(string fileName)
     {
         bool result = false;
 
-        if ( path.Contains('/') || path.Contains('\\') )
+        if ( fileName.Contains('/') || fileName.Contains('\\') )
             result = true;
 
         return result;
