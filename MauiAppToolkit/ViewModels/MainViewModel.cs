@@ -150,7 +150,7 @@ public sealed partial class MainViewModel : ObservableObject
     {
         SendConsole("Begin - OpenFile");
 
-        if (false)
+        if (true)
         {
             string folder1 = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             SendConsole(String.Format("SpecialFolder.Personal): {0}", folder1));
@@ -170,7 +170,7 @@ public sealed partial class MainViewModel : ObservableObject
             string mainDir = FileSystem.Current.AppDataDirectory;
             SendConsole(String.Format("FileSystem.Current.AppDataDirectory: {0}", mainDir));
 
-            await useOfPickerFoler();
+            await useOfPickerFoler(mainDir);
 
             // Get the file path for the file you want to read/write
             string filePath = FileSystem.AppDataDirectory + "/MyFile.txt";
@@ -475,11 +475,11 @@ public sealed partial class MainViewModel : ObservableObject
         return result;
     }
 
-    private async Task useOfPickerFoler()
+    private async Task useOfPickerFoler(string initialPath)
     {
         // User folder choice
         //string initialPath = "DCIM"; 
-        string initialPath = "ANE-LX1";
+        //string initialPath = "ANE-LX1";
         var folderResult = await CommunityToolkit.Maui.Storage.FolderPicker.PickAsync(initialPath, CancellationToken.None);
         if (folderResult.IsSuccessful)
         {
