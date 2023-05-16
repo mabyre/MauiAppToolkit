@@ -8,6 +8,8 @@ what is the way to save a file for exemple in OneDrive...
 
 storage/emulated/0/Android/data/com.compagnyname.appname
 
+<img style="margin: 10px" src="Images/2023-05-16_13h36_00.png" alt="MAUI App ToolKit" />
+
 ### Getting started
 
 This application is a Flyout Tab ContentPage :
