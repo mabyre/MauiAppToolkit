@@ -48,10 +48,13 @@
             Orientation="Horizontal">
 
             <!-- Editor for Text File -->
-            <Editor 
+            <Editor
                 Text="{Binding EditorFileText}"
                 Placeholder="File's content..."
-                HorizontalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand" 
+                IsEnabled="True"
+                IsReadOnly="False"
+                AutoSize="TextChanges"
                 />
         
         </StackLayout>
