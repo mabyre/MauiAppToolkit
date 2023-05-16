@@ -18,7 +18,7 @@
         <Grid Margin="10">
             <Border Style="{StaticResource BorderStyleGreen}">
                 <Editor x:Name="consoleEditor"
-                        Text="{Binding ConsoleText}"
+                        Text="{Binding ConsoleMessageText}"
                         FontSize="9"
                         Placeholder="This is the console..." 
                         IsReadOnly="False" 

@@ -13,40 +13,8 @@ using System.Windows.Input;
 
 namespace MauiAppToolkit.ViewModels;
 
-public sealed class MainViewModel : ObservableObject
+public sealed class MainViewModel : BaseViewModel
 {
-    //--------------------------------------------
-    // Console ViewModel
-    //--------------------------------------------
-
-    private static string _consoleText;
-    public string ConsoleText
-    {
-        set { SetProperty(ref _consoleText, value); }
-        get { return _consoleText; }
-    }
-
-    public void SendConsole(string message)
-    {
-        // Add time to console message
-        string time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ff") + " : ";
-        ConsoleText += time + message + Environment.NewLine;
-    }
-
-    public void SendConsole(bool date, string message)
-    {
-        ConsoleText += message + Environment.NewLine;
-
-        if (date == true)
-        {
-            // Add time to console message
-            string time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ff") + " : ";
-            String.Concat(time, ConsoleText);
-        }
-    }
-
-    //--------------------------------------------
-
     private FileResult resultFilePicker = null;
 
     // All what I saw in doc does not work!
