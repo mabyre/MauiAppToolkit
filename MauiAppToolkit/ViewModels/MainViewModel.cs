@@ -194,7 +194,6 @@ public sealed class MainViewModel : BaseViewModel
         if (resultFilePicker != null)
         {
             TextBoxFileName = resultFilePicker.FullPath;
-            SendConsole(String.Format("End - Try OpenFile : {0}", TextBoxFileName));
         }
         else
         {
@@ -203,8 +202,6 @@ public sealed class MainViewModel : BaseViewModel
             TextBoxFileNamePlaceholder = "Error on picking File.";
             return;
         }
-
-        displayToConsole(String.Format("End - Try OpenFile : {0}", TextBoxFileName));
 
         //
         // 2 - Try to read the file
@@ -218,9 +215,9 @@ public sealed class MainViewModel : BaseViewModel
         }
         catch
         {
-            displayToConsole("Impossible to read the File.");
             TextBoxFileName = "";
             TextBoxFileNamePlaceholder = "Impossible to read the File.";
+            displayToConsole("Impossible to read the File.");
             return;
         }
 
