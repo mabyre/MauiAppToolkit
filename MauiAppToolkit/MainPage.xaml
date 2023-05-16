@@ -55,8 +55,14 @@
                 </Grid>
             </Border>
 
-            <Border Style="{StaticResource BorderStyleRed}">
-                <Grid ColumnDefinitions="*,*" ColumnSpacing="25" Margin="5">
+            <!-- Editor for Text File -->
+            <Editor 
+                Text="{Binding EditorFileText}"
+                Placeholder="File's content..."
+                HorizontalOptions="FillAndExpand"
+                />
+        
+        </StackLayout>
 
                     <Button Text="Ouvrir"
                         FontSize="18"
