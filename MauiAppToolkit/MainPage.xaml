@@ -47,9 +47,10 @@
             Grid.ColumnSpan="2" 
             Orientation="Horizontal">
 
+            <!-- Editor for Text File -->
             <Editor 
                 Text="{Binding EditorFileText}"
-                Placeholder="Contenu du fichier..."
+                Placeholder="File's content..."
                 HorizontalOptions="FillAndExpand"
                 />
         
