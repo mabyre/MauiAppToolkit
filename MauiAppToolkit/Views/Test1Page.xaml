@@ -7,7 +7,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/Styles/StylesDebug.xaml" />
+                <ResourceDictionary Source="../Resources/Styles/StylesDebug.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -31,9 +31,11 @@
             Grid.ColumnSpan="2"
             Orientation="Horizontal">
 
-            <Label Text="Coucou"
+            <Label 
+                Text="Coucou"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            
         </StackLayout>
 
     </Grid>
