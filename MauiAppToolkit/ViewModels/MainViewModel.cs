@@ -149,6 +149,8 @@ public sealed class MainViewModel : ObservableObject
             SendConsole(false, "SpecialFolder.ApplicationData: NO-Ok");
         }
 
+        SendConsole(false, ""); // separator
+
         //
         // Find nothing else that works
         //
