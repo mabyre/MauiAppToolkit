@@ -343,10 +343,10 @@ public sealed class MainViewModel : ObservableObject
         {
             // DialogResult
             bool answer = false;
-            string messageFileAlreadyExist = "Attention: file \"" + fileName + "\" already exist.";
+            string messageFileAlreadyExist = "The file \"" + fileName + "\" exist.";
             answer = await Application.Current.MainPage.DisplayAlert(
                     messageFileAlreadyExist,
-                    "Would you like tu upate it ?",
+                    "Would you like to upate ?",
                     "Yes",
                     "No");
 
