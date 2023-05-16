@@ -8,7 +8,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SoDevLog;
 using System.Windows.Input;
-using static System.Environment;
+
+// FilePickerFileType
 
 namespace MauiAppToolkit.ViewModels;
 
@@ -48,8 +49,6 @@ public sealed class MainViewModel : ObservableObject
 
     private FileResult resultFilePicker = null;
 
-    private static bool fileGettedByDialogBox = false; // Open by Dialog Box
-
     // All what I saw in doc does not work!
     private string externalStorageDirectory = null; // mean we are on Windows
 
@@ -58,13 +57,7 @@ public sealed class MainViewModel : ObservableObject
     private static string _textBoxFileName;
     public string TextBoxFileName
     {
-        set
-        {
-            if (SetProperty(ref _textBoxFileName, value))
-            {
-                fileGettedByDialogBox = false;
-            }
-        }
+        set { SetProperty(ref _textBoxFileName, value); }
         get { return _textBoxFileName; }
     }
 
@@ -231,7 +224,6 @@ public sealed class MainViewModel : ObservableObject
         if (resultFilePicker != null)
         {
             TextBoxFileName = resultFilePicker.FullPath;
-            fileGettedByDialogBox = true;
             SendConsole(String.Format("End - Try OpenFile : {0}", TextBoxFileName));
         }
         else
@@ -241,6 +233,8 @@ public sealed class MainViewModel : ObservableObject
             TextBoxFileNamePlaceholder = "Error on picking File.";
             return;
         }
+
+        displayToConsole(String.Format("End - Try OpenFile : {0}", TextBoxFileName));
 
         //
         // 2 - Try to read the file
@@ -307,90 +301,77 @@ public sealed class MainViewModel : ObservableObject
         // 2 - Creating a new file
         //
 
-        // If the file was opened by the Box Open dialog then it contains the complete directory
-        if (fileGettedByDialogBox == false)
+        // User want to save a New File writing his name by hand in TextBoxFileName
+        string fileName = TextBoxFileName;
+
+        // There is no path in the file name
+        // we put the path instead of the user
+        //
+        if (containPath(fileName) == false) 
         {
-            // User want to save a New File writing his name by hand in TextBoxFileName
-            string fileName = TextBoxFileName;
-
-            // There is no path in the file name
-            // we put the path instead of the user
-            //
-            if (containPath(fileName) == false) 
+            if (DeviceInfo.Current.Platform == DevicePlatform.WinUI)
             {
-                if (DeviceInfo.Current.Platform == DevicePlatform.WinUI)
-                {
-                    TextBoxFileName = Path.Combine(FileSystem.Current.AppDataDirectory, TextBoxFileName);
-                }
-                else if (DeviceInfo.Current.Platform == DevicePlatform.Android)
-                {
-                    TextBoxFileName = externalStorageDirectory + TextBoxFileName;
-                }
-                else 
-                {
-                    SendConsole("ERROR: Plateforme non implémentée!");
-                };
+            string filePersonalPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            TextBoxFileName = Path.Combine(filePersonalPath, TextBoxFileName);
             }
-
-            // Warning the user overwrites an existing file
-            if (File.Exists(TextBoxFileName))
+            else if (DeviceInfo.Current.Platform == DevicePlatform.Android)
             {
-                // DialogResult
-                bool answer = false;
-                string messageFileAlreadyExist = "Attention: le fichier \"" + fileName + "\" existe déjà.";
-                answer = await Application.Current.MainPage.DisplayAlert(
-                        messageFileAlreadyExist,
-                        "Voulez vous l'écraser ?",
-                        "Oui",
-                        "Non");
-
-                if (answer == false)
-                {
-                    displayToConsole(messageFileAlreadyExist);
-                    TextToUser = "";
-                    PlaceholderTextToUser = messageFileAlreadyExist;
-                    return;
-                }
+                TextBoxFileName = externalStorageDirectory + TextBoxFileName;
             }
-
-            // Save the File .bak
-            // if file not already exist, don't create .bak
-            if (File.Exists(TextBoxFileName))
+            else 
             {
-                if (File.Exists(TextBoxFileName + ".bak"))
-                {
-                    File.Delete(TextBoxFileName + ".bak");
-                    displayToConsole("File deleted  \"" + TextBoxFileName + "\"");
-                }
-                File.Move(TextBoxFileName, TextBoxFileName + ".bak");
-                displayToConsole("Save file .bak");
-            }
+                SendConsole("ERROR: Plateforme non implémentée!");
+            };
         }
-        else // The File had been opened by Dialog Box Open there is a the path in it
+        else // containPath(fileName) == true
         {
-            // The file may come from very far away needed to be saved in : externalStorageDirectory
-            if (externalStorageDirectory != null)
+            if (DeviceInfo.Current.Platform == DevicePlatform.Android)
             {
+                // But on Android The file may come from very far away
+                // and needed to be saved in : externalStorageDirectory
+                //
                 char[] delimiterChars = { '/', '\\' };
-                string[] name = TextBoxFileName.Split( delimiterChars );
-                TextBoxFileName = externalStorageDirectory + name[ name.Length - 1];
-            }
-
-            // On sait que le fichier existe puisque l'on vient de l'ouvrir
-            // Si un ancien fichier .bak existe on le supprime
-            if (File.Exists(TextBoxFileName + ".bak"))
-            {
-                displayToConsole(String.Format("Old File Exist: {0}", TextBoxFileName + ".bak"));
-
-                File.Delete(TextBoxFileName + ".bak");
-                displayToConsole(String.Format("Old File deleted: {0}", TextBoxFileName + ".bak"));
-
-                File.Move(TextBoxFileName, TextBoxFileName + ".bak");
-                displayToConsole("New File .bak saved");
+                string[] name = TextBoxFileName.Split(delimiterChars);
+                TextBoxFileName = externalStorageDirectory + name[name.Length - 1];
             }
         }
 
-        // 2.1 - Maintenant on peut ouvrir le bon fichier
+        // Warning the user overwrites an existing file
+        if (File.Exists(TextBoxFileName))
+        {
+            // DialogResult
+            bool answer = false;
+            string messageFileAlreadyExist = "Attention: le fichier \"" + fileName + "\" existe déjà.";
+            answer = await Application.Current.MainPage.DisplayAlert(
+                    messageFileAlreadyExist,
+                    "Voulez vous l'écraser ?",
+                    "Oui",
+                    "Non");
+
+            if (answer == false)
+            {
+                displayToConsole(messageFileAlreadyExist);
+                TextToUser = "";
+                PlaceholderTextToUser = messageFileAlreadyExist;
+                return;
+            }
+        }
+
+        // 2.0 - Process File .bak
+
+        if (File.Exists(TextBoxFileName + ".bak"))
+        {
+            File.Delete(TextBoxFileName + ".bak");
+            displayToConsole("File bak : " + TextBoxFileName + ".bak" + " supressed.");
+        }
+
+        if (CheckBoxSupprimerBakChecked == false)
+        {
+            File.Copy(TextBoxFileName, TextBoxFileName + ".bak");
+            displayToConsole("File .bak saved");
+        }
+
+        // 2.1 - Open the right file
 
         FileStream fs;
         try
@@ -407,7 +388,7 @@ public sealed class MainViewModel : ObservableObject
         displayToConsole("File created.");
 
         //
-        // 3 - Cryptographie en phase gazeuse
+        // 3 - Write the file in Bytes
         //
 
         byte[] fileInBytes = new byte[EditorFileText.Length];
