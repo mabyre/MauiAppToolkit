@@ -6,7 +6,6 @@ public class ConsoleViewModel : BaseViewModel
 {
     public ConsoleViewModel() 
     {
-        SendConsole("Console ViewModel");
     }
 
     public ConsoleViewModel(string msg)

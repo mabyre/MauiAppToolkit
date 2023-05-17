@@ -320,6 +320,7 @@ public sealed class MainViewModel : BaseViewModel
             if (answer == false)
             {
                 displayToConsole(messageFileAlreadyExist);
+                displayToConsole("File not saved");
                 TextToUser = "";
                 PlaceholderTextToUser = messageFileAlreadyExist;
                 return;
