@@ -59,6 +59,8 @@ public ConsoleViewModel(string msg)
 }
 ```
 
+<img style="margin: 10px" src="Images/2023-05-17_15h28_45.png" alt="MAUI App ToolKit ConsoleViewModel" />
+
 I think now I have a good command of the MvvM model.
 
 ### Storage and Save File
