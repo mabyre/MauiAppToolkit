@@ -66,7 +66,12 @@ public sealed class MainViewModel : BaseViewModel
         get { return _checkBoxSupprimerBakChecked; }
     }
 
-#endregion
+    #endregion
+
+    public override void OnMessageTextPropertyChanged()
+    {
+        int break_point = 2;
+    }
 
     // Command Binding properties
 
@@ -243,6 +248,8 @@ public sealed class MainViewModel : BaseViewModel
         }
 
         displayToConsole("Read and display file \"" + TextBoxFileName + "\"");
+
+        SendConsole("End - OpenFile");
     }
 
     private async void SaveFile()

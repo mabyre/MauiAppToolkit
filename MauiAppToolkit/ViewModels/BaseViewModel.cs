@@ -5,42 +5,45 @@ namespace MauiAppToolkit.ViewModels;
 
 public class BaseViewModel : ObservableObject
 {
-    private ConsoleMessage _consoleMessage;
+    private Message _message;
 
-    public string ConsoleMessageText
+    public string MessageText
     {
-        get { return _consoleMessage.ConsoleMessageText; }
+        get { return _message.Text; }
         set
         {
-            if (_consoleMessage.ConsoleMessageText != value)
+            if (_message.Text != value)
             {
-                _consoleMessage.ConsoleMessageText = value;
-                OnPropertyChanged("ConsoleMessageText");
+                _message.Text = value;
+                OnPropertyChanged(nameof(MessageText));
+                OnMessageTextPropertyChanged();
             }
         }
     }
+
+    public virtual void OnMessageTextPropertyChanged() { }
 
     public void SendConsole(string message)
     {
         // Add time to console message
         string time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ff") + " : ";
-        ConsoleMessageText += time + message + Environment.NewLine;
+        MessageText += time + message + Environment.NewLine;
     }
 
     public void SendConsole(bool date, string message)
     {
-        ConsoleMessageText += message + Environment.NewLine;
+        MessageText += message + Environment.NewLine;
 
         if (date == true)
         {
             // Add time to console message
             string time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ff") + " : ";
-            String.Concat(time, ConsoleMessageText);
+            String.Concat(time, MessageText);
         }
     }
 
     public BaseViewModel() 
     {
-        _consoleMessage = ConsoleMessage.Instance;
+        _message = Message.Instance;
     }
 }

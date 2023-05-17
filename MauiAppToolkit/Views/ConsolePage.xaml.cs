@@ -5,7 +5,7 @@ namespace MauiAppToolkit.Views;
 
 public partial class ConsolePage : ContentPage
 {
-	public ConsolePage(MainViewModel viewModel)
+	public ConsolePage(ConsoleViewModel viewModel)
 	{
 		InitializeComponent();
 
