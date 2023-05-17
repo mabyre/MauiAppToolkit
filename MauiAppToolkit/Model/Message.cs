@@ -9,31 +9,32 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace MauiAppToolkit.Model;
 
-public class ConsoleMessage : ObservableObject
+public class Message : ObservableObject
 {
-    private static ConsoleMessage _instance;
+    private static Message _instance;
     private string _myProperty;
 
-    private ConsoleMessage()
+    private Message()
     {
         // Private constructor to prevent external instantiation
     }
 
-    public static ConsoleMessage Instance
+    public static Message Instance
     {
         get
         {
             if (_instance == null)
             {
-                _instance = new ConsoleMessage();
+                _instance = new Message();
             }
             return _instance;
         }
     }
 
-    public string ConsoleMessageText
+    public string Text
     {
         get => _myProperty;
         set => SetProperty(ref _myProperty, value);
     }
 }
+
