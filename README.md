@@ -28,7 +28,42 @@ This application is a Flyout Tab ContentPage :
 
 For applications that are a little tutchy, it's important while you are not in debug mode to have clear messages to the user. This the aim of Console.
 
+I did several tries until I realized that my Console viewmodel was not updated. 
+I had binder on a SetProperty of the Community.Mvvm.Toolkit when I clicked on Navigate to Console 
+the Message was not updated.
+
+Then I realize I could have code into the View to do something when you Navigated To the View:
+
+```csharp
+NavigatedTo="ContentPage_NavigatedTo"
+```
+
+Then all I had to do is to instanciate a new ViewModel with the updated Message:
+
+```csharp
+//<event>
+private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
+{
+    ConsoleViewModel viewModel = new ConsoleViewModel(_viewModel.MessageText);
+    BindingContext = viewModel;
+}
+//</event>
+```
+
+Last thing was to add a constructor to ConsoleViewModel that pass the updated Message to the new ConsoleViewModel.
+
+I think now I have a good command of the MvvM model.
+
+```csharp
+public ConsoleViewModel(string msg)
+{
+    base.MessageText = msg;
+}
+```
+
 ### Storage and Save File
+
+This is the tuff subject when you deploy on multiple platforms.
 
 FileSystem.Current.CacheDirectory :
 /data/user/0/com.companyname.mauiapptoolkit/cache
