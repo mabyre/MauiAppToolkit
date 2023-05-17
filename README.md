@@ -52,14 +52,14 @@ private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
 
 Last thing was to add a constructor to ConsoleViewModel that pass the updated Message to the new ConsoleViewModel.
 
-I think now I have a good command of the MvvM model.
-
 ```csharp
 public ConsoleViewModel(string msg)
 {
     base.MessageText = msg;
 }
 ```
+
+I think now I have a good command of the MvvM model.
 
 ### Storage and Save File
 
