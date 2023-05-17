@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:MauiAppToolkit.ViewModels"
              x:Class="MauiAppToolkit.Views.ConsolePage"
+             NavigatedTo="ContentPage_NavigatedTo"
              Title="Console messages">
-    <!--
-        editorFile
-    -->
+
+    <!--<ContentPage.BindingContext>
+        <viewModels:ConsoleViewModel />
+    </ContentPage.BindingContext>-->
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -18,7 +22,7 @@
         <Grid Margin="10">
             <Border Style="{StaticResource BorderStyleGreen}">
                 <Editor x:Name="consoleEditor"
-                        Text="{Binding ConsoleMessage}"
+                        Text="{Binding MessageText}"
                         FontSize="9"
                         Placeholder="This is the console..." 
                         IsReadOnly="False" 

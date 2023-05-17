@@ -68,11 +68,6 @@ public sealed class MainViewModel : BaseViewModel
 
     #endregion
 
-    public override void OnMessageTextPropertyChanged()
-    {
-        int break_point = 2;
-    }
-
     // Command Binding properties
 
     public ICommand OpenFileCommand { private set; get; }
