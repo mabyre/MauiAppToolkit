@@ -20,7 +20,7 @@ public sealed class MainViewModel : BaseViewModel
     // All what I saw in doc does not work!
     private string externalStorageDirectory = null; // mean we are on Windows
 
-#region UI_Binding_properties
+#region View_Binding_properties
 
     private static string _textBoxFileName;
     public string TextBoxFileName
@@ -66,7 +66,7 @@ public sealed class MainViewModel : BaseViewModel
         get { return _checkBoxSupprimerBakChecked; }
     }
 
-    #endregion
+#endregion
 
     // Command Binding properties
 
