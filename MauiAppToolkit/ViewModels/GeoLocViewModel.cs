@@ -1,4 +1,7 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿//
+// https://learn.microsoft.com/en-us/dotnet/api/system.double.tostring?view=net-7.0
+//
+using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +16,7 @@ public class GeoLocViewModel : BaseViewModel
     private CancellationTokenSource _cancelTokenSource;
     private Location location;
     private bool _isCheckingLocation;
+    private string format = "F8";
 
     #region View_Binding_properties
 
@@ -47,11 +51,10 @@ public class GeoLocViewModel : BaseViewModel
     {
         await GetCurrentLocation();
 
-
         if (location != null)
         {
-            LabelLongitude = location.Latitude.ToString();
-            LabelLatitude = location.Longitude.ToString();
+            LabelLongitude = location.Latitude.ToString(format);
+            LabelLatitude = location.Longitude.ToString(format);
 
             SendConsole("New Location");
         }
