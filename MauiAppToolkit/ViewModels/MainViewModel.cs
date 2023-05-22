@@ -86,7 +86,7 @@ public sealed class MainViewModel : BaseViewModel
         SendConsole("Application started and ready.");
         SendConsole(String.Format("Running Plateform: {0}", DeviceInfo.Current.Platform.ToString()));
 
-        SendConsole(false, ""); // separator
+        SendConsoleSeparator();
 
         //
         //
@@ -94,30 +94,30 @@ public sealed class MainViewModel : BaseViewModel
         //
         //
         string filePersonalPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-        SendConsole(false, String.Format("SpecialFolder.Personal: {0}", filePersonalPath));
+        SendConsole(String.Format("SpecialFolder.Personal: {0}", filePersonalPath), false);
 
         string fileApplicationDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        SendConsole(false, String.Format("SpecialFolder.ApplicationData: {0}", fileApplicationDataPath));
+        SendConsole(String.Format("SpecialFolder.ApplicationData: {0}", fileApplicationDataPath), false);
 
         if (Directory.Exists(filePersonalPath))
         {
-            SendConsole(false, "SpecialFolder.Personal: Ok");
+            SendConsole("SpecialFolder.Personal: Ok", false);
         }
         else
         {
-            SendConsole(false, "SpecialFolder.Personal: NO-Ok");
+            SendConsole("SpecialFolder.Personal: NO-Ok", false);
         }
 
         if (Directory.Exists(fileApplicationDataPath))
         {
-            SendConsole(false, "SpecialFolder.ApplicationData: Ok");
+            SendConsole("SpecialFolder.ApplicationData: Ok", false);
         }
         else
         {
-            SendConsole(false, "SpecialFolder.ApplicationData: NO-Ok");
+            SendConsole("SpecialFolder.ApplicationData: NO-Ok", false);
         }
 
-        SendConsole(false, ""); // separator
+        SendConsoleSeparator();
 
         //
         // Find nothing else that works
@@ -125,7 +125,7 @@ public sealed class MainViewModel : BaseViewModel
         if (DeviceInfo.Current.Platform == DevicePlatform.Android)
         {
             externalStorageDirectory = "/storage/emulated/0/Android/data/com.sodevlog.mauiapptoolkit/";
-            SendConsole(false, String.Format("ExternalStorageDirectory: {0}", externalStorageDirectory));
+            SendConsole(String.Format("ExternalStorageDirectory: {0}", externalStorageDirectory), false);
 
             // Can't use these! "files" directory does not exist. Should I create it ... pfff
             //externalStorageDirectory = "/storage/emulated/0/Android/data/com.sodevlog.mauiapptoolkit/files/";
@@ -133,20 +133,20 @@ public sealed class MainViewModel : BaseViewModel
 
             if (Directory.Exists(externalStorageDirectory)) 
             {
-                SendConsole(false, "ExternalStorageDirectory: Ok");
+                SendConsole("ExternalStorageDirectory: Ok", false);
             }
             else
             {
-                SendConsole(false, "ExternalStorageDirectory: NO-Ok");
+                SendConsole("ExternalStorageDirectory: NO-Ok", false);
             }
 
             if (Directory.Exists(externalStorageDirectory + "files"))
             {
-                SendConsole(false, "ExternalStorageDirectory.files: Ok");
+                SendConsole("ExternalStorageDirectory.files: Ok", false);
             }
             else
             {
-                SendConsole(false, "ExternalStorageDirectory.fles: NO-Ok");
+                SendConsole("ExternalStorageDirectory.fles: NO-Ok", false);
             }
         }
 

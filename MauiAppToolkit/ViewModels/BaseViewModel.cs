@@ -21,25 +21,25 @@ public class BaseViewModel : ObservableObject
         }
     }
 
+    // In case we want to do something in derived ViewModel
     public virtual void OnMessageTextPropertyChanged() { }
 
-    public void SendConsole(string message)
+    public void SendConsole(string message, bool date = true)
     {
-        // Add time to console message
-        string time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ff") + " : ";
-        MessageText += time + message + Environment.NewLine;
-    }
-
-    public void SendConsole(bool date, string message)
-    {
-        MessageText += message + Environment.NewLine;
+        string time = string.Empty;
 
         if (date == true)
         {
             // Add time to console message
-            string time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ff") + " : ";
-            String.Concat(time, MessageText);
+            time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ff") + " : ";
         }
+
+        MessageText += time + message + Environment.NewLine;
+    }
+
+    public void SendConsoleSeparator()
+    {
+        MessageText += Environment.NewLine;
     }
 
     public BaseViewModel() 
