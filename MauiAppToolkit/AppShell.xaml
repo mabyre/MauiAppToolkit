@@ -20,6 +20,13 @@
                 ContentTemplate="{DataTemplate local:Views.ConsolePage}"
                 Route="consolepage" />
         </Tab>
+
+        <Tab Title="Géoloc" Icon="{StaticResource IconThree}">
+            <ShellContent
+                Title="Géoloc"
+                ContentTemplate="{DataTemplate local:Views.Page1}"
+                Route="Page1" />
+        </Tab>
         
     </FlyoutItem>
 
