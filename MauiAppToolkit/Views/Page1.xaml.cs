@@ -2,9 +2,9 @@
 
 namespace MauiAppToolkit.Views;
 
-public partial class Test1Page : ContentPage
+public partial class Page1 : ContentPage
 {
-    public Test1Page()
+    public Page1()
     {
         InitializeComponent();
     }
