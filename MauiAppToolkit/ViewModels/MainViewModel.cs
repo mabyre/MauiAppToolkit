@@ -142,11 +142,11 @@ public sealed class MainViewModel : BaseViewModel
 
             if (Directory.Exists(externalStorageDirectory + "files"))
             {
-                SendConsole("ExternalStorageDirectory.files: Ok", false);
+                SendConsole($"ExternalStorageDirectory.Files: Ok", false);
             }
             else
             {
-                SendConsole("ExternalStorageDirectory.fles: NO-Ok", false);
+                SendConsole("ExternalStorageDirectory.Files: NO-Ok", false);
             }
         }
 
@@ -194,6 +194,7 @@ public sealed class MainViewModel : BaseViewModel
         if (resultFilePicker != null)
         {
             TextBoxFileName = resultFilePicker.FullPath;
+            SendConsole(String.Format("FilePicker.FullPath: {0}", TextBoxFileName));
         }
         else
         {

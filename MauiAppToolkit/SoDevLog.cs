@@ -10,11 +10,25 @@ public class Strings
 { 
     static public string ByteArrayToString(byte[] array)
     {
+        //UnicodeEncoding enc = new UnicodeEncoding(true, false, false);
+        //Decoder decoder = enc.GetDecoder();
+
+        //byte[] bytesRead = new byte[10];
+        //int lg = decoder.GetCharCount(bytesRead, 0, true);
+
+        //char[] chars = new char[array.Length];
+        //Array.Resize(ref chars, chars.Length + 50);
+
         string s = "";
 
-        for (int i = 0; i < array.Length; i++)
+        //for (int i = 0; i < array.Length; i++)
+        //{
+        //    s += (char)array[i];
+        //}
+
+        foreach (byte b in array)
         {
-            s += (char)array[i];
+            s += (char)b;
         }
 
         // Dos vs Unix
