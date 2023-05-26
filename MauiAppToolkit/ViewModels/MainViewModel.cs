@@ -7,6 +7,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SoDevLog;
+using System.Text;
 using System.Windows.Input;
 
 // FilePickerFileType
@@ -230,7 +231,7 @@ public sealed class MainViewModel : BaseViewModel
         fs.Read(fileInBytes, 0, (int)fs.Length);
         fs.Close();
 
-        EditorFileText = Strings.ByteArrayToString(fileInBytes);
+        EditorFileText = Encoding.UTF8.GetString(fileInBytes);
 
         // Display scroll bar if text is to long
         // le nombre de lignes du textBox
