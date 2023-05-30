@@ -28,8 +28,8 @@ public static class MauiProgram
 
     public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder mauiAppBuilder)
     {
-        // Only one view model
-//        mauiAppBuilder.Services.AddSingleton<ViewModels.ViewModelBase>();
+        mauiAppBuilder.Services.AddSingleton<ViewModels.BaseViewModel>();
+        mauiAppBuilder.Services.AddSingleton<ViewModels.ConsoleViewModel>(); 
         mauiAppBuilder.Services.AddSingleton<ViewModels.MainViewModel>();
 
         return mauiAppBuilder;
