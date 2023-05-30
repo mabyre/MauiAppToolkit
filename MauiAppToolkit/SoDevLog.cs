@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 namespace SoDevLog;
 
 public class Strings
-{ 
+{
     static public string ByteArrayToString(byte[] array)
     {
         string s = "";
 
-        for (int i = 0; i < array.Length; i++)
+        foreach (byte b in array)
         {
-            s += (char)array[i];
+            s += (char)b;
         }
 
         // Dos vs Unix
@@ -30,6 +30,7 @@ public class Strings
         }
         return s;
     }
+
     static public bool StringSearchWord(string str, string mot)
     {
         bool founded = false;
