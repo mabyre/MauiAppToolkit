@@ -5,10 +5,22 @@ namespace MauiAppToolkit.Views;
 
 public partial class ConsolePage : ContentPage
 {
-	public ConsolePage(MainViewModel viewModel)
+    // Keep a backup of the current viewmodel
+    ConsoleViewModel _viewModel;
+
+	public ConsolePage(ConsoleViewModel viewModel)
 	{
 		InitializeComponent();
 
+        _viewModel = viewModel;
+        BindingContext = _viewModel;
+    }
+
+    //<event>
+    private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
+    {
+        ConsoleViewModel viewModel = new ConsoleViewModel(_viewModel.MessageText);
         BindingContext = viewModel;
-	}
+    }
+    //</event>
 }
