@@ -190,14 +190,14 @@ public sealed partial class MainViewModel : BaseViewModel
         //string initialPath = "ANE-LX1";
         // - Try on Android emulator
         //sdk_gphone64_x86_64
-        string initialPath = "";
+        //string initialPath = "/data/user/0/com.sodevlog.mauiapptoolkit/";
+        string initialPath = externalStorageDirectory;
         // - On windows
         // FileSystem.Current.AppDataDirectory
 
         WriteToEditorFileText(String.Format("InitialPath:{0}", initialPath));
 
-        //        var folderResult = await FolderPicker.PickAsync(initialPath, CancellationToken.None);
-        var folderResult = await FolderPicker.PickAsync(CancellationToken.None);
+        var folderResult = await FolderPicker.PickAsync(initialPath, CancellationToken.None);
         if (folderResult.IsSuccessful)
         {
             var filesCount = Directory.EnumerateFiles(folderResult.Folder.Path).Count();
@@ -207,9 +207,8 @@ public sealed partial class MainViewModel : BaseViewModel
         }
         else
         {
-            WriteToEditorFileText("Folder choice UnSucessful");
+            WriteToEditorFileText(String.Format("Folder choice unsucessful: {0}", folderResult.Exception.Message));
         }
-
 
         //
         // Is there a file where we an write some TEXT
