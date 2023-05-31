@@ -53,3 +53,14 @@ instead of saying :
 { DevicePlatform.WinUI, new[] { ".txt", ".bak", "*" } }, // file extension
 ```
 
+### Storage Permission is not granted!
+
+Error on Android Emulator impossible to read file even directory on branch use-toolkit-maui-folderpicker I use the folder picker to see "where we are" in the directory tree.
+But it don't works cause Storage Permission is not granted!
+
+<img style="margin: 10px" src="Images/2023-05-31_09h01_53.png" alt="Storage Permission is not granted!" />
+
+But yet:
+
+[Try FolderPicker on Android Emulator](https://github.com/mabyre/MauiAppToolkit/commit/8add4f14d2215c6593a18ea628d330a288cbe25d)
+
