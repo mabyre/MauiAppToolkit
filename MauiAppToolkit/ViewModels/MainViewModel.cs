@@ -85,7 +85,7 @@ public sealed class MainViewModel : BaseViewModel
         _checkBoxSupprimerBakChecked = true;
 
         SendConsole("Application started and ready.");
-        SendConsole(String.Format("Running Plateform: {0}", DeviceInfo.Current.Platform.ToString()));
+        SendConsole(string.Format("Running Plateform: {0}", DeviceInfo.Current.Platform.ToString()));
 
         SendConsoleSeparator();
 
@@ -213,13 +213,13 @@ public sealed class MainViewModel : BaseViewModel
         try
         {
             fs = new FileStream(TextBoxFileName, FileMode.Open, FileAccess.Read);
-            SendConsole(String.Format("FilePicker.FullPath: {0}", TextBoxFileName));
+            SendConsole(string.Format("FilePicker.FullPath: {0}", TextBoxFileName));
         }
         catch
         {
             TextBoxFileName = "";
             TextBoxFileNamePlaceholder = "Impossible to read the File.";
-            displayToConsole("Impossible to read the File.");
+            SendConsole("Impossible to read the File.");
             return;
         }
 
@@ -241,8 +241,7 @@ public sealed class MainViewModel : BaseViewModel
             // TODO: textBoxFichier.ScrollBars = ScrollBars.Vertical;
         }
 
-        displayToConsole("Read and display file \"" + TextBoxFileName + "\"");
-
+        SendConsole("Read and display file \"" + TextBoxFileName + "\"");
         SendConsole("End - OpenFile");
     }
 
@@ -254,7 +253,7 @@ public sealed class MainViewModel : BaseViewModel
 
         if (TextBoxFileName == "")
         {
-            displayToConsole("There must be a File name.");
+            SendConsole("There must be a File name.");
             TextToUser = "";
             PlaceholderTextToUser = "Enter File name.";
             return;
@@ -262,7 +261,7 @@ public sealed class MainViewModel : BaseViewModel
 
         if (EditorFileText == "")
         {
-            displayToConsole("No Text to save.");
+            SendConsole("No Text to save.");
             TextToUser = "";
             PlaceholderTextToUser = "Enter text to save.";
             return;
@@ -291,7 +290,7 @@ public sealed class MainViewModel : BaseViewModel
             }
             else 
             {
-                SendConsole("ERROR: Plateforme non implémentée!");
+                SendConsole("ERROR: Plateform not implemented!");
             };
         }
         else // containPath(fileName) == true
@@ -321,8 +320,8 @@ public sealed class MainViewModel : BaseViewModel
 
             if (answer == false)
             {
-                displayToConsole(messageFileAlreadyExist);
-                displayToConsole("File not saved");
+                SendConsole(messageFileAlreadyExist);
+                SendConsole("File not saved");
                 TextToUser = "";
                 PlaceholderTextToUser = messageFileAlreadyExist;
                 return;
@@ -334,13 +333,13 @@ public sealed class MainViewModel : BaseViewModel
         if (File.Exists(TextBoxFileName + ".bak"))
         {
             File.Delete(TextBoxFileName + ".bak");
-            displayToConsole("File bak : " + TextBoxFileName + ".bak" + " supressed.");
+            SendConsole("File bak : " + TextBoxFileName + ".bak" + " supressed.");
         }
 
         if (CheckBoxSupprimerBakChecked == false)
         {
             File.Copy(TextBoxFileName, TextBoxFileName + ".bak");
-            displayToConsole("File .bak saved");
+            SendConsole("File .bak saved");
         }
 
         // 2.1 - Open the right file
@@ -352,12 +351,12 @@ public sealed class MainViewModel : BaseViewModel
         }
         catch (Exception ex)
         {
-            displayToConsole(String.Format("Exception: {0}", ex.Message));
+            SendConsole(String.Format("Exception: {0}", ex.Message));
             return;
         }
 
         PlaceholderTextToUser = "File created.";
-        displayToConsole("File created.");
+        SendConsole("File created.");
 
         //
         // 3 - Write the file in Bytes
@@ -371,27 +370,22 @@ public sealed class MainViewModel : BaseViewModel
         fs.Write(fileInBytes, 0, EditorFileText.Length);
         fs.Close();
 
-        displayToConsole("File in Byte read \"" + TextBoxFileName + "\"");
+        SendConsole("File in Byte read \"" + TextBoxFileName + "\"");
 
         if ( CheckBoxSupprimerBakChecked == true )
         {
             if (!File.Exists(TextBoxFileName + ".bak"))
             {
-                displayToConsole("Checkbox checked but the file \"" + TextBoxFileName + ".bak" + "\" does not already exist.");
+                SendConsole("Checkbox checked but the file \"" + TextBoxFileName + ".bak" + "\" does not already exist.");
                 return;
             }
 
             File.Delete(TextBoxFileName + ".bak");
-            displayToConsole("File : " + TextBoxFileName + ".bak" + " deleted.");
+            SendConsole("File : " + TextBoxFileName + ".bak" + " deleted.");
         }
     }
 
     // -------------------------------------------
-
-    public void displayToConsole(string message)
-    {
-        SendConsole(message);
-    }
 
     bool containPath(string fileName)
     {
