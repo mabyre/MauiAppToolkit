@@ -27,7 +27,14 @@
                 ContentTemplate="{DataTemplate local:Views.Page1}"
                 Route="Page1" />
         </Tab>
-        
+
+        <Tab Title="Speech" Icon="{StaticResource IconFour}">
+            <ShellContent
+                Title="Speech"
+                ContentTemplate="{DataTemplate local:Views.SpeechToTextPage}"
+                Route="SpeechToTextPage" />
+        </Tab>
+
     </FlyoutItem>
 
     <FlyoutItem Title="Console" Route="consolepage" FlyoutIcon="{StaticResource IconTwo}">
