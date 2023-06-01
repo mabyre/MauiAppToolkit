@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:MauiAppToolkit"
     Shell.FlyoutBehavior="Flyout">
 
-    <FlyoutItem Title="File" Route="mainpage" FlyoutIcon="{StaticResource IconOneFlyout}">
+    <FlyoutItem Title="Home" Route="mainpage" FlyoutIcon="{StaticResource IconOneFlyout}">
         
         <Tab Title="File" Icon="{StaticResource IconOneTab}">
             <ShellContent
@@ -31,19 +31,20 @@
     </FlyoutItem>
 
     <FlyoutItem Title="Console" Route="consolepage" FlyoutIcon="{StaticResource IconTwo}">
-        
-        <Tab Title="File" Icon="{StaticResource IconOneTab}">
-            <ShellContent
-                Title="One"
-                ContentTemplate="{DataTemplate local:MainPage}"
-                Route="mainpage" />
-        </Tab>
+
         <Tab Title="Console" Icon="{StaticResource IconTwo}">
             <ShellContent
                 Title="Console"
                 ContentTemplate="{DataTemplate local:Views.ConsolePage}"
                 Route="consolepage" />
         </Tab>
+        <Tab Title="File" Icon="{StaticResource IconOneTab}">
+            <ShellContent
+                Title="One"
+                ContentTemplate="{DataTemplate local:MainPage}"
+                Route="mainpage" />
+        </Tab>
+
        
     </FlyoutItem>
 
