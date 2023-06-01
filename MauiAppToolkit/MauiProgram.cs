@@ -1,5 +1,6 @@
-﻿using MauiAppToolkit.Views;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
+using CommunityToolkit.Maui.Media;
+using MauiAppToolkit.Views;
 
 namespace MauiAppToolkit;
 
@@ -18,8 +19,10 @@ public static class MauiProgram
             .RegisterViewModels()
             .RegisterView();
 
+        RegisterServices(builder.Services);
+
 #if DEBUG
-		builder.Logging.AddDebug().SetMinimumLevel(LogLevel.Trace);
+        builder.Logging.AddDebug().SetMinimumLevel(LogLevel.Trace);
 #endif
 
 		return builder.Build();
@@ -40,5 +43,11 @@ public static class MauiProgram
         mauiAppBuilder.Services.AddSingleton<MainPage>();
 
         return mauiAppBuilder;
+    }
+
+    static void RegisterServices(in IServiceCollection services)
+    {
+        services.AddSingleton<ISpeechToText>(SpeechToText.Default);
+        services.AddSingleton<ITextToSpeech>(TextToSpeech.Default);
     }
 }
