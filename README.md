@@ -10,9 +10,14 @@ storage/emulated/0/Android/data/com.compagnyname.appname
 
 <img style="margin: 10px" src="Images/2023-06-02_09h49_46.png" alt="MAUI App ToolKit" />
 
+### Requirements
+
+- Visual Studio Community 2022
+- .NET Multiplateform App UI Development
+
 ### Getting started
 
-This application is a Flyout Tab ContentPage :
+This application is a Flyout Tab ContentPage:
 
 ```xaml
 <FlyoutItem Title="Console" Route="consolepage" FlyoutIcon="{StaticResource IconTwo}">
@@ -23,6 +28,8 @@ This application is a Flyout Tab ContentPage :
             Route="mainpage" />
     </Tab>
 ```
+
+Make very easy the way to add a Page (View)
 
 ### Log to a Console
 
