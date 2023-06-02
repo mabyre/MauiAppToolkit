@@ -8,7 +8,7 @@ what is the way to save a file for exemple in OneDrive...
 
 storage/emulated/0/Android/data/com.compagnyname.appname
 
-<img style="margin: 10px" src="Images/2023-05-16_13h36_00.png" alt="MAUI App ToolKit" />
+<img style="margin: 10px" src="Images/2023-06-02_09h49_46.png" alt="MAUI App ToolKit" />
 
 ### Getting started
 
@@ -81,5 +81,17 @@ Here is the path to a file ridden from OneDrive:
 Has we can see when you read a file from OneDrive, or other clouds, the file is stored in cache directory. 
 Therefor it's not usefull to save the file, user will not find it. 
 So the application will save the file in "application user's accessible directory".
+
+### Integration of SpeechToText module
+
+If there is, this one is a very intresting game, first discover the module in:
+
+[community-toolkit\samples\CommunityToolkit.Maui.Sample\Pages\Essentials](https://github.com/CommunityToolkit/Maui/tree/main/samples/CommunityToolkit.Maui.Sample/Pages/Essentials)
+
+Then make it works in MauiAppToolkit:
+
+<img style="margin: 10px" src="Images/2023-06-01_18h26_41.png" alt="MAUI App ToolKit SpeechToText Interface" />
+
+Doing this you will see all the implications.
 
 Have fun!
