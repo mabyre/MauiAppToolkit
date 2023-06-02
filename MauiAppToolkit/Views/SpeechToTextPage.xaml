@@ -16,7 +16,7 @@
 
     <ScrollView>
         <Grid
-            RowDefinitions="64, 24, 64, 24, auto, 60, 60, 60"
+            RowDefinitions="64, 24, 64, 24, auto, 63, 63, 63"
             Padding="30,0">
 
             <Label
@@ -48,7 +48,7 @@
                 HorizontalOptions="Center"
                 HorizontalTextAlignment="Center"
                 MinimumHeightRequest="100"
-                Margin="0,0,0,20" />
+                Margin="0,30,0,20" />
 
             <Button
                 Grid.Row="5"
