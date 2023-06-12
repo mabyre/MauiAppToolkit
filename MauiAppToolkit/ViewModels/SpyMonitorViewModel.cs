@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace MauiAppToolkit.ViewModels;
 
-public class GeoLocViewModel : BaseViewModel
+public class SpyMonitorViewModel : BaseViewModel
 {
     private CancellationTokenSource _cancelTokenSource;
     private Location location;
@@ -20,12 +20,12 @@ public class GeoLocViewModel : BaseViewModel
 
     #region View_Binding_properties
 
-    private static string _latitude;
-    public string LabelLatitude
-    {
-        set { SetProperty(ref _latitude, value); }
-        get { return _latitude; }
-    }
+    //private static string _latitude;
+    //public string LabelLatitude
+    //{
+    //    set { SetProperty(ref _latitude, value); }
+    //    get { return _latitude; }
+    //}
 
     private static string _longitude;
 
@@ -35,16 +35,34 @@ public class GeoLocViewModel : BaseViewModel
         get { return _longitude; }
     }
 
+    private bool _isCameraActive;
+    public bool IsCameraActive
+    {
+        get { return _isCameraActive; }
+        set
+        {
+            if (_isCameraActive != value)
+            {
+                _isCameraActive = value;
+                SetProperty(ref _isCameraActive, value);
+            }
+        }
+    }
+
+
     #endregion
 
     public ICommand RefreshLocationCommand { private set; get; }
 
-    public GeoLocViewModel()
+    public ICommand CheckCameraStatusCommand { private set; get; }
+
+    public SpyMonitorViewModel()
     {
-        _latitude = "Latitude";
+        //_latitude = "Latitude";
         _longitude = "Longitude";
 
         RefreshLocationCommand = new RelayCommand(RefreshLocation);
+        CheckCameraStatusCommand = new RelayCommand(CheckCameraStatus);
     }
 
     public async void RefreshLocation()
@@ -54,7 +72,7 @@ public class GeoLocViewModel : BaseViewModel
         if (location != null)
         {
             LabelLongitude = location.Latitude.ToString(format);
-            LabelLatitude = location.Longitude.ToString(format);
+            //LabelLatitude = location.Longitude.ToString(format);
 
             SendConsole("New Location");
         }
@@ -108,5 +126,17 @@ public class GeoLocViewModel : BaseViewModel
         if (_isCheckingLocation && _cancelTokenSource != null && _cancelTokenSource.IsCancellationRequested == false)
             _cancelTokenSource.Cancel();
     }
+
+    public async Task<bool> IsCameraActiveGranted()
+    {
+        var status = await Permissions.CheckStatusAsync<Permissions.Camera>();
+        return status == PermissionStatus.Granted;
+    }
+
+    private async void CheckCameraStatus()
+    {
+        IsCameraActive = await IsCameraActiveGranted();
+    }
+
 
 }

@@ -2,8 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:MauiAppToolkit.ViewModels"
-             x:Class="MauiAppToolkit.Views.Page1"
-             Title="Géoloc">
+             x:Class="MauiAppToolkit.Views.SpyMonitorPage"
+             Title="Spy Monitor">
 
     <ContentPage.BindingContext>
         <viewModels:GeoLocViewModel />
@@ -29,19 +29,47 @@
         <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource BorderStyleBlue}"/>
         <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource BorderStyleGreen}"/>
 
-        <Label x:Name="LabelLatitude"
+        <StackLayout
             Grid.Row="0"
             Grid.Column="0"
-            Text="{Binding LabelLatitude}"
-            VerticalOptions="CenterAndExpand" 
-            HorizontalOptions="CenterAndExpand" />
+            Grid.ColumnSpan="1">
+            
+            <Label 
+                Text="Switch"
+                FontSize="50"
+                FontAttributes="Bold"
+                HorizontalOptions="Center" />
 
-        <Label x:Name="LabelLongitude"
+            <Switch 
+                x:Name="switch"
+                HorizontalOptions="Center"
+                VerticalOptions="CenterAndExpand"
+                IsToggled="{Binding CheckCameraStatus}"/>
+
+            <Label
+                Text="Switch is now False"
+                FontSize="20"
+                HorizontalOptions="Center"
+                VerticalOptions="CenterAndExpand">
+                <Label.Triggers>
+                    
+                    <DataTrigger 
+                        TargetType="Label"
+                        Binding="{Binding Source={x:Reference switch}, Path=IsToggled}"
+                        Value="True">
+                        <Setter Property="Text" Value="Switch is now True" />
+                    </DataTrigger>
+                    
+                </Label.Triggers>
+            </Label>
+        </StackLayout>
+
+        <!--<Label x:Name="LabelLongitude"
             Grid.Row="0"
             Grid.Column="1"
             Text="{Binding LabelLongitude}"
             VerticalOptions="CenterAndExpand" 
-            HorizontalOptions="CenterAndExpand" />
+            HorizontalOptions="CenterAndExpand" />-->
 
         <StackLayout
             Grid.Row="2"
@@ -52,10 +80,10 @@
 
                 <Button
                     HorizontalOptions="CenterAndExpand"
-                    Text="Get Géoloc"
+                    Text="Get CameraStatus"
                     FontSize="18"
                     BorderWidth="2"
-                    Command="{Binding RefreshLocationCommand}"
+                    Command="{Binding CheckCameraStatusCommand}"
                     />
 
         </StackLayout>

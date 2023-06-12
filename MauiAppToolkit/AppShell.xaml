@@ -59,7 +59,7 @@
         <Tab Title="SpyMonitor" Icon="{StaticResource IconThree}">
         <ShellContent
                 Title="SpyMonitor"
-                ContentTemplate="{DataTemplate local:Views.SpyMonitorViewModel}"
+                ContentTemplate="{DataTemplate local:Views.SpyMonitorPage}"
                 Route="spymonitor" />
         </Tab>
 

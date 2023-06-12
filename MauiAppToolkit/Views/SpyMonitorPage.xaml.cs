@@ -2,9 +2,9 @@
 
 namespace MauiAppToolkit.Views;
 
-public partial class Page1 : ContentPage
+public partial class SpyMonitorPage : ContentPage
 {
-    public Page1()
+    public SpyMonitorPage()
     {
         InitializeComponent();
     }
