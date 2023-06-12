@@ -24,8 +24,8 @@
         <Tab Title="Géoloc" Icon="{StaticResource IconThree}">
             <ShellContent
                 Title="Géoloc"
-                ContentTemplate="{DataTemplate local:Views.Page1}"
-                Route="Page1" />
+                ContentTemplate="{DataTemplate local:Views.GeoLocPage}"
+                Route="GeoLocPage" />
         </Tab>
 
         <Tab Title="Speech" Icon="{StaticResource IconFour}">

@@ -2,9 +2,9 @@
 
 namespace MauiAppToolkit.Views;
 
-public partial class Page1 : ContentPage
+public partial class GeoLocPage : ContentPage
 {
-    public Page1()
+    public GeoLocPage()
     {
         InitializeComponent();
     }
