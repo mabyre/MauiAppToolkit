@@ -51,8 +51,18 @@
                 ContentTemplate="{DataTemplate local:MainPage}"
                 Route="mainpage" />
         </Tab>
-
        
+    </FlyoutItem>
+
+    <FlyoutItem Title="SpyMonitor" Route="spymonitor" FlyoutIcon="{StaticResource IconTwo}">
+
+        <Tab Title="SpyMonitor" Icon="{StaticResource IconThree}">
+        <ShellContent
+                Title="SpyMonitor"
+                ContentTemplate="{DataTemplate local:Views.SpyMonitorViewModel}"
+                Route="spymonitor" />
+        </Tab>
+
     </FlyoutItem>
 
 </Shell>

@@ -65,4 +65,19 @@
 		<PackageReference Include="System.Speech" Version="8.0.0-preview.4.23259.5" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="Views\GeoLocPage.xaml.cs">
+	    <DependentUpon>GeoLocPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\SpyMonitorPage.xaml.cs">
+	    <DependentUpon>SpyMonitorPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\SpyMonitorPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>
