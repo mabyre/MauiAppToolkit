@@ -79,23 +79,24 @@ public class GeoLocViewModel : BaseViewModel
         //   FeatureNotSupportedException
         //   FeatureNotEnabledException
         //   PermissionException
-        catch (FeatureNotSupportedException)
-        {
-            // La fonctionnalité de géolocalisation n'est pas prise en charge sur le périphérique
-            Console.WriteLine($"Feature Not Supported");
-            SendConsole("Feature Not Supported");
-        }
-        catch (PermissionException)
-        {
-            // L'autorisation d'accès à la géolocalisation n'a pas été accordée
-            Console.WriteLine($"Permission exception");
-            SendConsole("Permission exception");
-        }
+        //catch (FeatureNotSupportedException)
+        //{
+        //    // La fonctionnalité de géolocalisation n'est pas prise en charge sur le périphérique
+        //    Console.WriteLine($"Feature Not Supported");
+        //    SendConsole("Feature Not Supported");
+        //}
+        //catch (PermissionException exp)
+        //{
+        //    // L'autorisation d'accès à la géolocalisation n'a pas été accordée
+        //    Console.WriteLine($"Permission exception");
+        //    SendConsole("Permission exception");
+        //}
         catch (Exception ex)
         {
             // Une erreur s'est produite lors de la récupération de la position GPS
             Console.WriteLine($"Erreur de géolocalisation : {ex.Message}");
-            SendConsole(String.Format("Exception: {0}", ex.Message));
+            SendConsole(String.Format("Exception.message: {0}", ex.Message));
+            SendConsole(String.Format("Exception.source: {0}", ex.Source));
         }
         finally
         {
