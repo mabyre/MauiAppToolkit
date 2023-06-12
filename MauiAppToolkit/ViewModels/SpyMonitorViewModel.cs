@@ -2,12 +2,8 @@
 // https://learn.microsoft.com/en-us/dotnet/api/system.double.tostring?view=net-7.0
 //
 using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
+//using Windows.Media.Capture;
 
 namespace MauiAppToolkit.ViewModels;
 
@@ -20,111 +16,33 @@ public class SpyMonitorViewModel : BaseViewModel
 
     #region View_Binding_properties
 
-    //private static string _latitude;
-    //public string LabelLatitude
-    //{
-    //    set { SetProperty(ref _latitude, value); }
-    //    get { return _latitude; }
-    //}
-
-    private static string _longitude;
-
-    public string LabelLongitude
-    {
-        set { SetProperty(ref _longitude, value); }
-        get { return _longitude; }
-    }
-
     private bool _isCameraActive;
     public bool IsCameraActive
     {
         get { return _isCameraActive; }
-        set
-        {
-            if (_isCameraActive != value)
-            {
-                _isCameraActive = value;
-                SetProperty(ref _isCameraActive, value);
-            }
-        }
+        set { SetProperty( ref _isCameraActive, value ); }
     }
 
+
+    private bool _isMicrophoneActive;
+    public bool IsMicrophoneActive
+    {
+        get { return _isMicrophoneActive; }
+        set { SetProperty( ref _isMicrophoneActive, value ); }
+    }
 
     #endregion
 
-    public ICommand RefreshLocationCommand { private set; get; }
-
     public ICommand CheckCameraStatusCommand { private set; get; }
+    public ICommand SetCameraStatusCommand { private set; get; }
+    public ICommand CheckMicrophoneStatusCommand { private set; get; }
 
     public SpyMonitorViewModel()
     {
-        //_latitude = "Latitude";
-        _longitude = "Longitude";
 
-        RefreshLocationCommand = new RelayCommand(RefreshLocation);
-        CheckCameraStatusCommand = new RelayCommand(CheckCameraStatus);
-    }
-
-    public async void RefreshLocation()
-    {
-        await GetCurrentLocation();
-
-        if (location != null)
-        {
-            LabelLongitude = location.Latitude.ToString(format);
-            //LabelLatitude = location.Longitude.ToString(format);
-
-            SendConsole("New Location");
-        }
-    }
-
-    public async Task GetCurrentLocation()
-    {
-        try
-        {
-            _isCheckingLocation = true;
-
-            GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
-
-            _cancelTokenSource = new CancellationTokenSource();
-
-            location = await Geolocation.Default.GetLocationAsync(request, _cancelTokenSource.Token);
-
-            //if (location != null)
-            //    Console.WriteLine($"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
-        }
-        // Catch one of the following exceptions:
-        //   FeatureNotSupportedException
-        //   FeatureNotEnabledException
-        //   PermissionException
-        catch (FeatureNotSupportedException)
-        {
-            // La fonctionnalité de géolocalisation n'est pas prise en charge sur le périphérique
-            Console.WriteLine($"Feature Not Supported");
-            SendConsole("Feature Not Supported");
-        }
-        catch (PermissionException)
-        {
-            // L'autorisation d'accès à la géolocalisation n'a pas été accordée
-            Console.WriteLine($"Permission exception");
-            SendConsole("Permission exception");
-        }
-        catch (Exception ex)
-        {
-            // Une erreur s'est produite lors de la récupération de la position GPS
-            Console.WriteLine($"Erreur de géolocalisation : {ex.Message}");
-            SendConsole(String.Format("Exception: {0}", ex.Message));
-        }
-        finally
-        {
-            _isCheckingLocation = false;
-        }
-    }
-
-    public void CancelRequest()
-    {
-        if (_isCheckingLocation && _cancelTokenSource != null && _cancelTokenSource.IsCancellationRequested == false)
-            _cancelTokenSource.Cancel();
+        CheckCameraStatusCommand = new RelayCommand( CheckCameraStatus );
+        SetCameraStatusCommand = new RelayCommand( SetCameraStatus );
+        CheckMicrophoneStatusCommand = new RelayCommand( CheckMicrophoneStatus );
     }
 
     public async Task<bool> IsCameraActiveGranted()
@@ -135,8 +53,43 @@ public class SpyMonitorViewModel : BaseViewModel
 
     private async void CheckCameraStatus()
     {
+        SendConsole( "SpyMonitor: CheckCameraStatus" );
+
+        IsCameraActive = false;
+
+        await Task.Delay( 1000 );
+
         IsCameraActive = await IsCameraActiveGranted();
     }
 
+    private async void SetCameraStatus()
+    {
+        // Vérification des autorisations
+        var status = await Permissions.CheckStatusAsync<Permissions.Camera>();
+        if ( status != PermissionStatus.Granted )
+        {
+            // Gérer l'absence d'autorisation de la caméra
+            return;
+        }
 
+        // Désactiver la caméra
+        //await MediaCapture.StopPreviewAsync();
+    }
+
+    public async Task<bool> IsMicrophoneActiveGranted()
+    {
+        var status = await Permissions.CheckStatusAsync<Permissions.Microphone>();
+        return status == PermissionStatus.Granted;
+    }
+
+    private async void CheckMicrophoneStatus()
+    {
+        SendConsole( "SpyMonitor: CheckMicrophoneStatus" );
+
+        IsMicrophoneActive = false;
+
+        await Task.Delay( 1000 );
+
+        IsMicrophoneActive = await IsMicrophoneActiveGranted();
+    }
 }

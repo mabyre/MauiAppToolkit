@@ -1,4 +1,4 @@
-﻿## MauiAppToolkit
+﻿# MauiAppToolkit
 
 Toolkit denomination take place in simple code that can be used to make simple integration.
 
@@ -10,12 +10,12 @@ storage/emulated/0/Android/data/com.compagnyname.appname
 
 <img style="margin: 10px" src="Images/2023-06-02_09h49_46.png" alt="MAUI App ToolKit" />
 
-### Requirements
+## Requirements
 
 - Visual Studio Community 2022
 - .NET Multiplateform App UI Development
 
-### Getting started
+## Getting started
 
 This application is a Flyout Tab ContentPage:
 
@@ -31,7 +31,14 @@ This application is a Flyout Tab ContentPage:
 
 Make very easy the way to add a Page (View)
 
-### Log to a Console
+## Summary
+
+- [Log to a Console](#Log-to-a-Console)
+- [Storage and Save File](#Storage-and-Save-File)
+- [Integration of SpeechToText module](#Integration-of-SpeechToText-module)
+- [Play with Permission](#Play-with-Permission)
+
+## Log to a Console
 
 For applications that are a little tutchy, it's important while you are not in debug mode to have clear messages to the user. This the aim of Console.
 
@@ -70,7 +77,7 @@ public ConsoleViewModel(string msg)
 
 I think now I have a good command of the MvvM model.
 
-### Storage and Save File
+## Storage and Save File
 
 This is the tuff subject when you deploy on multiple platforms.
 
@@ -89,7 +96,7 @@ Has we can see when you read a file from OneDrive, or other clouds, the file is 
 Therefor it's not usefull to save the file, user will not find it. 
 So the application will save the file in "application user's accessible directory".
 
-### Integration of SpeechToText module
+## Integration of SpeechToText module
 
 If there is, this one is a very intresting game, first discover the module in:
 
@@ -100,5 +107,11 @@ Then make it works in MauiAppToolkit:
 <img style="margin: 10px" src="Images/2023-06-01_18h26_41.png" alt="MAUI App ToolKit SpeechToText Interface" />
 
 Doing this you will see all the implications.
+
+## Play with Permission
+
+A need today is to know if you can be spyied, so look at the status of the camera and the microphone and if they are active try to deactivate them.
+
+For now it's a little disappointing because it's not so much MAUI
 
 Have fun!
