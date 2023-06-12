@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:MauiAppToolkit.ViewModels"
+             x:Class="MauiAppToolkit.Views.Page1"
+             Title="Géoloc">
+
+    <ContentPage.BindingContext>
+        <viewModels:GeoLocViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/Styles/StylesDebug.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <Grid 
+        RowDefinitions="*,Auto"
+        ColumnDefinitions="*,*"
+        Margin="5"
+        ColumnSpacing="5"
+        RowSpacing="10">
+
+        <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource BorderStyleBlue}"/>
+        <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource BorderStyleGreen}"/>
+        <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource BorderStyleBlue}"/>
+        <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource BorderStyleGreen}"/>
+
+        <Label x:Name="LabelLatitude"
+            Grid.Row="0"
+            Grid.Column="0"
+            Text="{Binding LabelLatitude}"
+            VerticalOptions="CenterAndExpand" 
+            HorizontalOptions="CenterAndExpand" />
+
+        <Label x:Name="LabelLongitude"
+            Grid.Row="0"
+            Grid.Column="1"
+            Text="{Binding LabelLongitude}"
+            VerticalOptions="CenterAndExpand" 
+            HorizontalOptions="CenterAndExpand" />
+
+        <StackLayout
+            Grid.Row="2"
+            Grid.ColumnSpan="2" 
+            Spacing="5"
+            Margin="10"
+            Orientation="Horizontal">
+
+                <Button
+                    HorizontalOptions="CenterAndExpand"
+                    Text="Get Géoloc"
+                    FontSize="18"
+                    BorderWidth="2"
+                    Command="{Binding RefreshLocationCommand}"
+                    />
+
+        </StackLayout>
+
+    </Grid>
+</ContentPage>
