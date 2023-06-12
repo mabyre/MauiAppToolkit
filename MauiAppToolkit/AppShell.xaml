@@ -15,13 +15,6 @@
                 Route="mainpage" />
         </Tab>
 
-        <Tab Title="SpyMonitor" Icon="{StaticResource IconThree}">
-            <ShellContent
-                Title="SpyMonitor"
-                ContentTemplate="{DataTemplate local:Views.SpyMonitorPage}"
-                Route="spymonitor" />
-        </Tab>
-
         <Tab Title="Géoloc" Icon="{StaticResource IconThree}">
             <ShellContent
                 Title="Géoloc"
@@ -36,23 +29,13 @@
                 Route="SpeechToTextPage" />
         </Tab>
 
-    </FlyoutItem>
-
-    <FlyoutItem Title="Console" Route="consolepage" FlyoutIcon="{StaticResource IconTwo}">
-
-        <Tab Title="Console" Icon="{StaticResource IconTwo}">
+        <Tab Title="SpyMonitor" Icon="{StaticResource IconThree}">
             <ShellContent
-                Title="Console"
-                ContentTemplate="{DataTemplate local:Views.ConsolePage}"
-                Route="consolepage" />
+                Title="SpyMonitor"
+                ContentTemplate="{DataTemplate local:Views.SpyMonitorPage}"
+                Route="spymonitor" />
         </Tab>
-        <Tab Title="File" Icon="{StaticResource IconOneTab}">
-            <ShellContent
-                Title="One"
-                ContentTemplate="{DataTemplate local:MainPage}"
-                Route="mainpage" />
-        </Tab>
-       
+    
     </FlyoutItem>
 
     <FlyoutItem Title="Console" Route="consolepage" FlyoutIcon="{StaticResource IconTwo}">
