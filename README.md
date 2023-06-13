@@ -36,7 +36,7 @@ Make very easy the way to add a Page (View)
 - [Log to a Console](#Log-to-a-Console)
 - [Storage and Save File](#Storage-and-Save-File)
 - [Integration of SpeechToText module](#Integration-of-SpeechToText-module)
-- [Play with Permission](#Play-with-Permission)
+- [Spy monitor Play with Permission](#Spy-monitor-Play-with-Permission)
 
 ## Log to a Console
 
@@ -108,7 +108,7 @@ Then make it works in MauiAppToolkit:
 
 Doing this you will see all the implications.
 
-## Play with Permission
+## Spy monitor Play with Permission
 
 A need today is to know if you can be spyied, so look at the status of the camera and the microphone and if they are active try to deactivate them.
 
