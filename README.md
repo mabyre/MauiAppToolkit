@@ -112,6 +112,8 @@ Doing this you will see all the implications.
 
 A need today is to know if you can be spyied, so look at the status of the camera and the microphone and if they are active try to deactivate them.
 
-For now it's a little disappointing because it's not so much MAUI
+<img style="margin: 10px" src="Images/2023-06-13_16h42_51.png" alt="MAUI App ToolKit Media Spy Status" />
+
+For now it's a bit disappointing because MAUI doesn't go far enough, I still can't find a way to activate or deactivate the camera or the microphone without going through platform specific code
 
 Have fun!
