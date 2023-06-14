@@ -1,6 +1,7 @@
 ﻿//
 // https://learn.microsoft.com/en-us/dotnet/api/system.double.tostring?view=net-7.0
 //
+using Camera.MAUI;
 using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
 //using Windows.Media.Capture;
@@ -36,6 +37,8 @@ public class SpyMonitorViewModel : BaseViewModel
     public ICommand CheckCameraStatusCommand { private set; get; }
     public ICommand SetCameraStatusCommand { private set; get; }
     public ICommand CheckMicrophoneStatusCommand { private set; get; }
+    public ICommand StopCameraCommand { private set; get; }
+   
 
     public SpyMonitorViewModel()
     {
@@ -43,6 +46,7 @@ public class SpyMonitorViewModel : BaseViewModel
         CheckCameraStatusCommand = new RelayCommand( CheckCameraStatus );
         SetCameraStatusCommand = new RelayCommand( SetCameraStatus );
         CheckMicrophoneStatusCommand = new RelayCommand( CheckMicrophoneStatus );
+        StopCameraCommand = new RelayCommand( StopCamera );
     }
 
     public async Task<bool> IsCameraActiveGranted()
@@ -91,5 +95,15 @@ public class SpyMonitorViewModel : BaseViewModel
         await Task.Delay( 1000 );
 
         IsMicrophoneActive = await IsMicrophoneActiveGranted();
+    }
+
+    private async void StopCamera()
+    {
+        SendConsole( "SpyMonitor: StopCamera" );
+
+        //if ( await cameraView.StopCameraAsync() == CameraResult.Success )
+        //{
+        //    playing = false;
+        //}
     }
 }

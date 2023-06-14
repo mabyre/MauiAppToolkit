@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:MauiAppToolkit.ViewModels"
+             xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
              x:Class="MauiAppToolkit.Views.SpyMonitorPage"
              Title="Spy Monitor">
 
@@ -17,114 +18,145 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </ContentPage.Resources>
-    
-    <Grid 
-        RowDefinitions="80,*,*,60,80"
-        ColumnDefinitions="*"
-        Margin="5"
-        ColumnSpacing="5"
-        RowSpacing="10">
 
-        <Border Grid.Row="0" Style="{StaticResource BorderStyleBlue}"/>
-        <Border Grid.Row="1" Style="{StaticResource BorderStyleRed}"/>
-        <Border Grid.Row="2" Style="{StaticResource BorderStyleGreen}"/>
-        <Border Grid.Row="3" Style="{StaticResource BorderStyleBlue}"/>
+    <ScrollView Margin="5">
+        <Grid 
+            RowDefinitions="45,210,50,50,60,60,80"
+            ColumnDefinitions="*"
+            Margin="5"
+            ColumnSpacing="5"
+            RowSpacing="10">
 
-        <Label 
-            Grid.Row="0"
-            Text="Media Spy Status"
-            FontSize="50"
-            FontAttributes="Bold"
-            HorizontalOptions="Center" />
-
-        <StackLayout 
-            Grid.Row="1"
-            Orientation="Horizontal"
-            HorizontalOptions="CenterAndExpand"
-            Padding="10"
-            Spacing="15">
+            <Border Grid.Row="0" Style="{StaticResource BorderStyleBlue}"/>
+            <Border Grid.Row="1" Style="{StaticResource BorderStyleBlack}"/>
+            <Border Grid.Row="2" Style="{StaticResource BorderStyleRed}"/>
+            <Border Grid.Row="3" Style="{StaticResource BorderStyleGreen}"/>
+            <Border Grid.Row="4" Style="{StaticResource BorderStyleBlue}"/>
 
             <Label 
-                HeightRequest="45"
-                VerticalOptions="Center"
-                VerticalTextAlignment="Center"
-                Text="Microphone's status: "
-                />
-            
-            <Switch 
-                x:Name="switchMicrophone"
-                HeightRequest="45"
-                Style="{StaticResource CustomSwitchStyle}"
+                Grid.Row="0"
+                Text="Media Spy Status"
+                FontSize="28"
+                FontAttributes="Bold"
+                HorizontalOptions="Center" />
+
+            <cv:CameraView 
+                Grid.Row="1"
+                x:Name="cameraView"
+                WidthRequest="300" 
+                HeightRequest="200"/>
+
+            <StackLayout 
+                Grid.Row="2"
+                Orientation="Horizontal"
+                HorizontalOptions="CenterAndExpand"
+                Padding="10"
+                Spacing="15">
+
+                <Label 
+                    HeightRequest="45"
+                    VerticalOptions="Center"
+                    VerticalTextAlignment="Center"
+                    Text="Microphone's status: "
+                    />
+
+                <Switch 
+                    x:Name="switchMicrophone"
+                    HeightRequest="45"
+                    Style="{StaticResource CustomSwitchStyle}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    IsToggled="{Binding IsMicrophoneActive}"
+                    />
+
+            </StackLayout>
+
+            <StackLayout 
+                Grid.Row="3"
+                Orientation="Horizontal"
+                HorizontalOptions="CenterAndExpand"
+                Padding="10"
+                Spacing="15">
+
+                <Label 
+                    HeightRequest="45"
+                    VerticalOptions="Center"
+                    VerticalTextAlignment="Center"
+                    Text="Camera's status: "
+                    />
+
+                <Switch 
+                    x:Name="switch"
+                    HeightRequest="45"
+                    VerticalOptions="CenterAndExpand"
+                    IsToggled="{Binding IsCameraActive}"
+                    />
+            </StackLayout>
+
+            <!--<Label
+                Grid.Row="4"
+                Text="Switch is now False"
+                FontSize="20"
                 HorizontalOptions="Center"
-                VerticalOptions="Center"
-                IsToggled="{Binding IsMicrophoneActive}"
-                />
-            
-        </StackLayout>
-
-        <StackLayout 
-            Grid.Row="2"
-            Orientation="Horizontal"
-            HorizontalOptions="CenterAndExpand"
-            Padding="10"
-            Spacing="15">
-
-            <Label 
-                HeightRequest="45"
-                VerticalOptions="Center"
-                VerticalTextAlignment="Center"
-                Text="Camera's status: "
-                />
-            
-            <Switch 
-                x:Name="switch"
-                HeightRequest="45"
-                VerticalOptions="CenterAndExpand"
-                IsToggled="{Binding IsCameraActive}"
-                />
-        </StackLayout>
-
-        <Label
-            Grid.Row="3"
-            Text="Switch is now False"
-            FontSize="20"
-            HorizontalOptions="Center"
-            VerticalOptions="CenterAndExpand">
-            <Label.Triggers>
+                VerticalOptions="CenterAndExpand">
+                <Label.Triggers>
                     
-                <DataTrigger 
-                    TargetType="Label"
-                    Binding="{Binding Source={x:Reference switch}, Path=IsToggled}"
-                    Value="True">
-                    <Setter Property="Text" Value="Switch is now True" />
-                </DataTrigger>
+                    <DataTrigger 
+                        TargetType="Label"
+                        Binding="{Binding Source={x:Reference switch}, Path=IsToggled}"
+                        Value="True">
+                        <Setter Property="Text" Value="Switch is now True" />
+                    </DataTrigger>
                     
-            </Label.Triggers>
-        </Label>
-        
-        <StackLayout
-            Grid.Row="4"
-            Spacing="5"
-            Margin="10"
-            Orientation="Horizontal">
+                </Label.Triggers>
+            </Label>-->
 
-            <Button
-                HorizontalOptions="CenterAndExpand"
-                Text="Check CameraStatus"
-                FontSize="18"
-                BorderWidth="2"
-                Command="{Binding CheckCameraStatusCommand}"
-                />
+            <StackLayout
+                Grid.Row="4"
+                Spacing="5"
+                Margin="5"
+                Orientation="Horizontal"
+                HorizontalOptions="Center">
 
-            <Button
-                HorizontalOptions="CenterAndExpand"
-                Text="Check Microphone"
-                FontSize="18"
-                BorderWidth="2"
-                Command="{Binding CheckMicrophoneStatusCommand}"
-                />
-            
-        </StackLayout>
+                <Button 
+                    x:Name="controlButton" 
+                    Text="Stop" 
+                    Command="{Binding StopCameraCommand}"
+                    Clicked="controlButton_Clicked"
+                    />
 
-    </Grid>
+                <Button 
+                    x:Name="ButtonStart" 
+                    Text="Start" 
+                    Command="{Binding StopCameraCommand}"
+                    Clicked="ButtonStart_Clicked"
+                    />
+            </StackLayout>
+
+            <StackLayout
+                Grid.Row="5"
+                Spacing="5"
+                Margin="5"
+                Orientation="Horizontal">
+
+                <Button
+                    HorizontalOptions="CenterAndExpand"
+                    Text="Check Cam"
+                    FontSize="16"
+                    BorderWidth="2"
+                    Command="{Binding CheckCameraStatusCommand}"
+                    />
+
+                <Button
+                    HorizontalOptions="CenterAndExpand"
+                    Text="Check Mic"
+                    FontSize="16"
+                    BorderWidth="2"
+                    Command="{Binding CheckMicrophoneStatusCommand}"
+                    />
+
+            </StackLayout>
+
+        </Grid>
+    </ScrollView>
 </ContentPage>
