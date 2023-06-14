@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui.Media;
+using Camera.MAUI;
 using MauiAppToolkit.Views;
 
 namespace MauiAppToolkit;
@@ -10,7 +11,8 @@ public static class MauiProgram
 	{
 		var builder = MauiApp.CreateBuilder()
 			.UseMauiApp<App>()
-			.ConfigureFonts(fonts =>
+            .UseMauiCameraView()
+            .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
