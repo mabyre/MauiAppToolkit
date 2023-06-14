@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:MauiAppToolkit"
     >
 
-    <!-- Debug purpose -->
+    <!-- Debug purpose StrokeThickness"  Value="1" -->
     <Style x:Key="BorderStyleBlue" TargetType="Border">
         <Setter Property="Stroke" Value="#0000FF" />
         <Setter Property="StrokeThickness"  Value="0" />
@@ -22,5 +22,9 @@
         <Setter Property="StrokeThickness"  Value="0" />
         <Setter Property="BackgroundColor" Value="White" />
     </Style>
-    
+    <Style x:Key="BorderStyleBlack" TargetType="Border">
+        <Setter Property="Stroke" Value="Black" />
+        <Setter Property="StrokeThickness"  Value="1" />
+        <Setter Property="BackgroundColor" Value="White" />
+    </Style>    
 </ResourceDictionary>
