@@ -54,7 +54,7 @@
                 Spacing="15">
 
                 <Label 
-                    HeightRequest="45"
+                    HeightRequest="30"
                     VerticalOptions="Center"
                     VerticalTextAlignment="Center"
                     Text="Microphone's status: "
@@ -62,7 +62,7 @@
 
                 <Switch 
                     x:Name="switchMicrophone"
-                    HeightRequest="45"
+                    HeightRequest="30"
                     Style="{StaticResource CustomSwitchStyle}"
                     HorizontalOptions="Center"
                     VerticalOptions="Center"
@@ -79,7 +79,7 @@
                 Spacing="15">
 
                 <Label 
-                    HeightRequest="45"
+                    HeightRequest="30"
                     VerticalOptions="Center"
                     VerticalTextAlignment="Center"
                     Text="Camera's status: "
@@ -87,7 +87,7 @@
 
                 <Switch 
                     x:Name="switch"
-                    HeightRequest="45"
+                    HeightRequest="30"
                     VerticalOptions="CenterAndExpand"
                     IsToggled="{Binding IsCameraActive}"
                     />

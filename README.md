@@ -37,6 +37,7 @@ Make very easy the way to add a Page (View)
 - [Storage and Save File](#Storage-and-Save-File)
 - [Integration of SpeechToText module](#Integration-of-SpeechToText-module)
 - [Spy monitor Play with Permission](#Spy-monitor-Play-with-Permission)
+- [Spy monitor Play with Camera.MAUI](#Spy-monitor-Play-with-CameraMAUI)
 
 ## Log to a Console
 
@@ -115,5 +116,13 @@ A need today is to know if you can be spyied, so look at the status of the camer
 <img style="margin: 10px" src="Images/2023-06-13_16h42_51.png" alt="MAUI App ToolKit Media Spy Status" />
 
 For now it's a bit disappointing because MAUI doesn't go far enough, I still can't find a way to activate or deactivate the camera or the microphone without going through platform specific code
+
+## Spy monitor Play with CameraMAUI
+
+I discover the Camera.MAUI plugin nuget to play with the camera device:
+
+<img style="margin: 10px" src="Images/2023-06-14_18h17_23.png" alt="MAUI App ToolKit & Camera.MAUI" />
+
+And guest what, not possible to shutoff the camera, steel to be done !
 
 Have fun!
