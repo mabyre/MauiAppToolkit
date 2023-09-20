@@ -34,6 +34,7 @@ Make very easy the way to add a Page (View)
 ## Summary
 
 - [Log to a Console](#Log-to-a-Console)
+    - [Go to Console](https://github.com/mabyre/MauiAppToolkit#go-to-the-console)
 - [Storage and Save File](#Storage-and-Save-File)
 - [Integration of SpeechToText module](#Integration-of-SpeechToText-module)
 - [Spy monitor Play with Permission](#Spy-monitor-Play-with-Permission)
@@ -43,7 +44,7 @@ Make very easy the way to add a Page (View)
 
 For applications that are a little tutchy, it's important while you are not in debug mode to have clear messages to the user. This the aim of Console.
 
-I did several tries until I realized that my Console viewmodel was not updated. 
+I did several tries until I realized that my Console viewmodel was not updated, I was wrong in MvvM model.
 I had binder on a SetProperty of the Community.Mvvm.Toolkit when I clicked on Navigate to Console 
 the Message was not updated.
 
@@ -53,7 +54,7 @@ Then I realize I could have code into the View to do something when you Navigate
 NavigatedTo="ContentPage_NavigatedTo"
 ```
 
-Then all I had to do is to instanciate a new ViewModel with the updated Message:
+Then all I had to do, is to instanciate a new ViewModel with the updated Message:
 
 ```csharp
 //<event>
@@ -77,6 +78,14 @@ public ConsoleViewModel(string msg)
 <img style="margin: 10px" src="Images/2023-05-17_15h28_45.png" alt="MAUI App ToolKit ConsoleViewModel" />
 
 I think now I have a good command of the MvvM model.
+
+### Go to the Console
+
+I came back here months later then I find hard to remember that the Console was reachable here:
+
+<img style="margin: 10px" src="Images/2023-09-20_16h58_06.png" alt="Go to the Console" />
+
+FlyoutItem means you have a main menu.
 
 ## Storage and Save File
 
