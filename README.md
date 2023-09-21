@@ -34,7 +34,8 @@ Make very easy the way to add a Page (View)
 ## Summary
 
 - [Log to a Console](#Log-to-a-Console)
-    - [Go to Console](https://github.com/mabyre/MauiAppToolkit#go-to-the-console)
+    - [Understanding MVVM Pattern](#understanding-mvvm-pattern)
+    - [Go to Console](#go-to-the-console)
 - [Storage and Save File](#Storage-and-Save-File)
 - [Integration of SpeechToText module](#Integration-of-SpeechToText-module)
 - [Spy monitor Play with Permission](#Spy-monitor-Play-with-Permission)
@@ -44,7 +45,9 @@ Make very easy the way to add a Page (View)
 
 For applications that are a little tutchy, it's important while you are not in debug mode to have clear messages to the user. This the aim of Console.
 
-I did several tries until I realized that my Console viewmodel was not updated, I was wrong in MvvM model.
+### Understanding MvvM pattern
+
+I did several tries until I realized that my Console viewmodel was not updated, I was wrong in **MvvM model**.
 I had binder on a SetProperty of the Community.Mvvm.Toolkit when I clicked on Navigate to Console 
 the Message was not updated.
 
@@ -87,24 +90,26 @@ I came back here months later then I find hard to remember that the Console was 
 
 FlyoutItem means you have a main menu.
 
-## Storage and Save File
+## Storage and Save Files
 
-This is the tuff subject when you deploy on multiple platforms.
+This is the tuff subject when you deploy on multiple platforms because you deal with each FileSystems.
 
-FileSystem.Current.CacheDirectory :
-/data/user/0/com.companyname.mauiapptoolkit/cache
+FileSystem.Current.CacheDirectory:
 
-FileSystem.Current.AppDataDirectory
-/data/user/0/com.companyname.mauiapptoolkit/files
+**/data/user/0/com.companyname.mauiapptoolkit/cache**
+
+FileSystem.Current.AppDataDirectory:
+
+**/data/user/0/com.companyname.mauiapptoolkit/files**
 
 Here is the path to a file ridden from OneDrive: 
 
-/storage/emulated/0/Android/data/com.companyname.mauiapptoolkit/cache
-/2203693cc04e0be7f4f024d5f9499e13/92c9d622ed3d489a8a37b988f0c003c1/file.xxx
+**/storage/emulated/0/Android/data/com.companyname.mauiapptoolkit/cache
+/2203693cc04e0be7f4f024d5f9499e13/92c9d622ed3d489a8a37b988f0c003c1/file.xxx**
 
 Has we can see when you read a file from OneDrive, or other clouds, the file is stored in cache directory. 
-Therefor it's not usefull to save the file, user will not find it. 
-So the application will save the file in "application user's accessible directory".
+Therefor it's not usefull to save the file in this place, user will not be able find it. 
+So the application will save the file in **"application user's accessible directory"**.
 
 ## Integration of SpeechToText module
 
@@ -132,6 +137,6 @@ I discover the Camera.MAUI plugin nuget to play with the camera device:
 
 <img style="margin: 10px" src="Images/2023-06-14_18h17_23.png" alt="MAUI App ToolKit & Camera.MAUI" />
 
-And guest what, not possible to shutoff the camera, steel to be done !
+And guess what, you can't turn off the camera, you still have to do it!
 
 Have fun!

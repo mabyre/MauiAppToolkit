@@ -16,7 +16,7 @@ public partial class ConsolePage : ContentPage
         BindingContext = _viewModel;
     }
 
-    //<event>
+    //<event> NavigatedTo
     private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
     {
         ConsoleViewModel viewModel = new ConsoleViewModel(_viewModel.MessageText);
