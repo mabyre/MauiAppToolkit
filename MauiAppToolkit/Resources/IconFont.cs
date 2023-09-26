@@ -2,6 +2,9 @@
 // Coming from :
 // https://github.com/dotnet/maui-samples/tree/main/6.0/Navigation/ShellMixedSample/ShellMixedSample/Resources
 //
+// Version 6.0 supressed - Replaced with:
+// https://github.com/dotnet/maui-samples/blob/main/7.0/Navigation/ShellMixedSample/ShellMixedSample/Resources/
+//
 using Microsoft.Maui;
 
 namespace MauiAppToolkit;
