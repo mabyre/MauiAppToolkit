@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace MauiAppToolkit.ViewModels;
 
-public sealed class MainViewModel : BaseViewModel
+public sealed class FileViewModel : BaseViewModel
 {
     private FileResult resultFilePicker = null;
 
@@ -75,7 +75,7 @@ public sealed class MainViewModel : BaseViewModel
 
     public ICommand SaveFileCommand { private set; get; }
 
-    public MainViewModel()
+    public FileViewModel()
     {
         _textBoxFileName = "FileName.txt"; // nom du fichier de l'utilisateur par défaut
         _textBoxFileNamePlaceholder = "File Name :";

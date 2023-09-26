@@ -11,7 +11,7 @@
         <Tab Title="File" Icon="{StaticResource IconOneTab}">
             <ShellContent
                 Title="File"
-                ContentTemplate="{DataTemplate local:MainPage}"
+                ContentTemplate="{DataTemplate local:Views.FilePage}"
                 Route="mainpage" />
         </Tab>
 
