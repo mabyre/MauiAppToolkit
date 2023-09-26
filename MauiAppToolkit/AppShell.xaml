@@ -6,13 +6,13 @@
     xmlns:local="clr-namespace:MauiAppToolkit"
     Shell.FlyoutBehavior="Flyout">
 
-    <FlyoutItem Title="Home" Route="mainpage" FlyoutIcon="{StaticResource IconOneFlyout}">
+    <FlyoutItem Title="Home" Route="filepage" FlyoutIcon="{StaticResource IconOneFlyout}">
         
         <Tab Title="File" Icon="{StaticResource IconOneTab}">
             <ShellContent
                 Title="File"
                 ContentTemplate="{DataTemplate local:Views.FilePage}"
-                Route="mainpage" />
+                Route="filepage" />
         </Tab>
 
         <Tab Title="Géoloc" Icon="{StaticResource IconThree}">
@@ -33,14 +33,14 @@
             <ShellContent
                 Title="SpyMonitor"
                 ContentTemplate="{DataTemplate local:Views.SpyMonitorPage}"
-                Route="spymonitor" />
+                Route="SpyMonitorPage" />
         </Tab>
     
     </FlyoutItem>
 
-    <FlyoutItem Title="Console" Route="consolepage" FlyoutIcon="{StaticResource IconTwo}">
+    <FlyoutItem Title="Admin" Route="consolepage" FlyoutIcon="{StaticResource IconTwoFlyout}">
 
-        <Tab Title="Console" Icon="{StaticResource IconTwo}">
+        <Tab Title="Console" Icon="{StaticResource IconTwoFlyout}">
             <ShellContent
                 Title="Console"
                 ContentTemplate="{DataTemplate local:Views.ConsolePage}"

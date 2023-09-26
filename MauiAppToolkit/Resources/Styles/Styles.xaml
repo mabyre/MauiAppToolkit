@@ -17,12 +17,12 @@
                Size="22"
                Color="{StaticResource Gray100}"
                Glyph="{x:Static local:IconFont.File}"/>
-    
-    <FontImage x:Key="IconTwo"
+
+    <FontImage x:Key="IconTwoFlyout"
                FontFamily="FontAwesome"
                Size="22"
                Color="{StaticResource Primary}"
-               Glyph="{x:Static local:IconFont.AddressBook}"/>
+               Glyph="{x:Static local:IconFont.Bomb}"/>
     
     <FontImage x:Key="IconThree"
                FontFamily="FontAwesome"
