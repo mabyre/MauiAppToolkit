@@ -25,19 +25,11 @@ public partial class SpyMonitorPage : ContentPage
                 {
                     if ( await cameraView.StartCameraAsync() == CameraResult.Success )
                     {
-                        controlButton.Text = "Stop";
+                        // Do something with UI controlButton.Text = "Stop";
                         playing = true;
                     }
                 } 
             );
-        }
-    }
-
-    private async void controlButton_Clicked( object sender, EventArgs e )
-    {
-        if ( await cameraView.StopCameraAsync() == CameraResult.Success )
-        {
-            playing = false;
         }
     }
 
@@ -48,4 +40,14 @@ public partial class SpyMonitorPage : ContentPage
             playing = true;
         }
     }
+
+    private async void ButtonStop_Clicked( object sender, EventArgs e )
+    {
+        if ( await cameraView.StopCameraAsync() == CameraResult.Success )
+        {
+            playing = false;
+        }
+    }
+
+
 }

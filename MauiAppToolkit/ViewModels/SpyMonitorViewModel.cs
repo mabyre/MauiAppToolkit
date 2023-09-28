@@ -1,7 +1,6 @@
 ﻿//
 // https://learn.microsoft.com/en-us/dotnet/api/system.double.tostring?view=net-7.0
 //
-using Camera.MAUI;
 using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
 //using Windows.Media.Capture;
@@ -17,19 +16,19 @@ public class SpyMonitorViewModel : BaseViewModel
 
 #region View_Binding_properties
 
-    private bool _isCameraActive;
-    public bool IsCameraActive
+    private bool _isCameraPermisisonGranted;
+    public bool IsCameraPermissionGranted
     {
-        get { return _isCameraActive; }
-        set { SetProperty( ref _isCameraActive, value ); }
+        get { return _isCameraPermisisonGranted; }
+        set { SetProperty( ref _isCameraPermisisonGranted, value ); }
     }
 
 
-    private bool _isMicrophoneActive;
-    public bool IsMicrophoneActive
+    private bool _isMicrophonePermissionGranted;
+    public bool IsMicrophonePermissionGranted
     {
-        get { return _isMicrophoneActive; }
-        set { SetProperty( ref _isMicrophoneActive, value ); }
+        get { return _isMicrophonePermissionGranted; }
+        set { SetProperty( ref _isMicrophonePermissionGranted, value ); }
     }
 
 #endregion
@@ -59,11 +58,11 @@ public class SpyMonitorViewModel : BaseViewModel
     {
         SendConsole( "SpyMonitor: CheckCameraStatus" );
 
-        IsCameraActive = false;
+        IsCameraPermissionGranted = false;
 
         await Task.Delay( 1000 );
 
-        IsCameraActive = await IsCameraActiveGranted();
+        IsCameraPermissionGranted = await IsCameraActiveGranted();
     }
 
     private async void SetCameraStatus()
@@ -90,11 +89,11 @@ public class SpyMonitorViewModel : BaseViewModel
     {
         SendConsole( "SpyMonitor: CheckMicrophoneStatus" );
 
-        IsMicrophoneActive = false;
+        IsMicrophonePermissionGranted = false;
 
         await Task.Delay( 1000 );
 
-        IsMicrophoneActive = await IsMicrophoneActiveGranted();
+        IsMicrophonePermissionGranted = await IsMicrophoneActiveGranted();
     }
 
     private async void StopCamera()

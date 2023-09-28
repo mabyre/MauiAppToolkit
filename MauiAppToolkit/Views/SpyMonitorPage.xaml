@@ -57,7 +57,7 @@
                     HeightRequest="30"
                     VerticalOptions="Center"
                     VerticalTextAlignment="Center"
-                    Text="Microphone's status: "
+                    Text="Microphone's permission status: "
                     />
 
                 <Switch 
@@ -66,7 +66,7 @@
                     Style="{StaticResource CustomSwitchStyle}"
                     HorizontalOptions="Center"
                     VerticalOptions="Center"
-                    IsToggled="{Binding IsMicrophoneActive}"
+                    IsToggled="{Binding IsMicrophonePermissionGranted}"
                     />
 
             </StackLayout>
@@ -82,14 +82,14 @@
                     HeightRequest="30"
                     VerticalOptions="Center"
                     VerticalTextAlignment="Center"
-                    Text="Camera's status: "
+                    Text="Camera's permission status: "
                     />
 
                 <Switch 
                     x:Name="switch"
                     HeightRequest="30"
                     VerticalOptions="CenterAndExpand"
-                    IsToggled="{Binding IsCameraActive}"
+                    IsToggled="{Binding IsCameraPermissionGranted}"
                     />
             </StackLayout>
 
@@ -119,17 +119,17 @@
                 HorizontalOptions="Center">
 
                 <Button 
-                    x:Name="controlButton" 
-                    Text="Stop" 
-                    Command="{Binding StopCameraCommand}"
-                    Clicked="controlButton_Clicked"
+                    x:Name="ButtonStart" 
+                    Text="Start" 
+                    Command="{Binding StartCameraCommand}"
+                    Clicked="ButtonStart_Clicked"
                     />
 
                 <Button 
-                    x:Name="ButtonStart" 
-                    Text="Start" 
+                    x:Name="ButtonStop" 
+                    Text="Stop" 
                     Command="{Binding StopCameraCommand}"
-                    Clicked="ButtonStart_Clicked"
+                    Clicked="ButtonStop_Clicked"
                     />
             </StackLayout>
 
