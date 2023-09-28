@@ -25,19 +25,10 @@ public partial class OpticalRecogPage : ContentPage
                 {
                     if ( await cameraView.StartCameraAsync() == CameraResult.Success )
                     {
-                        controlButton.Text = "Stop";
                         playing = true;
                     }
                 } 
             );
-        }
-    }
-
-    private async void controlButton_Clicked( object sender, EventArgs e )
-    {
-        if ( await cameraView.StopCameraAsync() == CameraResult.Success )
-        {
-            playing = false;
         }
     }
 
@@ -48,4 +39,13 @@ public partial class OpticalRecogPage : ContentPage
             playing = true;
         }
     }
+
+    private async void ButtonStop_Clicked( object sender, EventArgs e )
+    {
+        if ( await cameraView.StopCameraAsync() == CameraResult.Success )
+        {
+            playing = false;
+        }
+    }
+
 }

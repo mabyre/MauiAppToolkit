@@ -53,106 +53,18 @@
                 HorizontalOptions="Center">
 
                 <Button 
-                    x:Name="controlButton" 
-                    Text="Stop" 
-                    Command="{Binding StopCameraCommand}"
-                    Clicked="controlButton_Clicked"
-                    />
-
-                <Button 
                     x:Name="ButtonStart" 
                     Text="Start" 
                     Command="{Binding StopCameraCommand}"
                     Clicked="ButtonStart_Clicked"
                     />
-            </HorizontalStackLayout>
-
-            <StackLayout 
-                Grid.Row="3"
-                Orientation="Horizontal"
-                HorizontalOptions="CenterAndExpand"
-                Padding="10"
-                Spacing="15">
-
-                <Label 
-                    HeightRequest="30"
-                    VerticalOptions="Center"
-                    VerticalTextAlignment="Center"
-                    Text="Microphone's status: "
+                
+                <Button 
+                    x:Name="ButtonStop" 
+                    Text="Stop" 
+                    Command="{Binding StopCameraCommand}"
+                    Clicked="ButtonStop_Clicked"
                     />
-
-                <Switch 
-                    x:Name="switchMicrophone"
-                    HeightRequest="30"
-                    Style="{StaticResource CustomSwitchStyle}"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    IsToggled="{Binding IsMicrophoneActive}"
-                    />
-            </StackLayout>
-
-            <StackLayout 
-                Grid.Row="4"
-                Orientation="Horizontal"
-                HorizontalOptions="CenterAndExpand"
-                Padding="10"
-                Spacing="15">
-
-                <Label 
-                    HeightRequest="30"
-                    VerticalOptions="Center"
-                    VerticalTextAlignment="Center"
-                    Text="Camera's status: "
-                    />
-
-                <Switch 
-                    x:Name="switch"
-                    HeightRequest="30"
-                    VerticalOptions="CenterAndExpand"
-                    IsToggled="{Binding IsCameraActive}"
-                    />
-            </StackLayout>
-
-            <!--<Label
-                Grid.Row="4"
-                Text="Switch is now False"
-                FontSize="20"
-                HorizontalOptions="Center"
-                VerticalOptions="CenterAndExpand">
-                <Label.Triggers>
-                    
-                    <DataTrigger 
-                        TargetType="Label"
-                        Binding="{Binding Source={x:Reference switch}, Path=IsToggled}"
-                        Value="True">
-                        <Setter Property="Text" Value="Switch is now True" />
-                    </DataTrigger>
-                    
-                </Label.Triggers>
-            </Label>-->
-
-            <HorizontalStackLayout
-                Grid.Row="5"
-                Spacing="45"
-                Margin="5"
-                HorizontalOptions="Center">
-
-                <Button
-                    HorizontalOptions="CenterAndExpand"
-                    Text="Check Cam"
-                    FontSize="16"
-                    BorderWidth="2"
-                    Command="{Binding CheckCameraStatusCommand}"
-                    />
-
-                <Button
-                    HorizontalOptions="CenterAndExpand"
-                    Text="Check Mic"
-                    FontSize="16"
-                    BorderWidth="2"
-                    Command="{Binding CheckMicrophoneStatusCommand}"
-                    />
-
             </HorizontalStackLayout>
 
         </Grid>
