@@ -15,7 +15,7 @@ public class SpyMonitorViewModel : BaseViewModel
     private bool _isCheckingLocation;
     private string format = "F8";
 
-    #region View_Binding_properties
+#region View_Binding_properties
 
     private bool _isCameraActive;
     public bool IsCameraActive
@@ -32,7 +32,7 @@ public class SpyMonitorViewModel : BaseViewModel
         set { SetProperty( ref _isMicrophoneActive, value ); }
     }
 
-    #endregion
+#endregion
 
     public ICommand CheckCameraStatusCommand { private set; get; }
     public ICommand SetCameraStatusCommand { private set; get; }

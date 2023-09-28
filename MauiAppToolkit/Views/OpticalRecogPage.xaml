@@ -21,7 +21,7 @@
 
     <ScrollView Margin="5">
         <Grid 
-            RowDefinitions="45,210,50,50,60,60,80"
+            RowDefinitions="35,210,60,30,30,60,80"
             ColumnDefinitions="*"
             Margin="5"
             ColumnSpacing="5"
@@ -36,7 +36,7 @@
             <Label 
                 Grid.Row="0"
                 Text="Media Spy Status"
-                FontSize="28"
+                FontSize="22"
                 FontAttributes="Bold"
                 HorizontalOptions="Center" />
 
@@ -46,8 +46,29 @@
                 WidthRequest="300" 
                 HeightRequest="200"/>
 
-            <StackLayout 
+            <HorizontalStackLayout
                 Grid.Row="2"
+                Spacing="5"
+                Margin="5"
+                HorizontalOptions="Center">
+
+                <Button 
+                    x:Name="controlButton" 
+                    Text="Stop" 
+                    Command="{Binding StopCameraCommand}"
+                    Clicked="controlButton_Clicked"
+                    />
+
+                <Button 
+                    x:Name="ButtonStart" 
+                    Text="Start" 
+                    Command="{Binding StopCameraCommand}"
+                    Clicked="ButtonStart_Clicked"
+                    />
+            </HorizontalStackLayout>
+
+            <StackLayout 
+                Grid.Row="3"
                 Orientation="Horizontal"
                 HorizontalOptions="CenterAndExpand"
                 Padding="10"
@@ -68,11 +89,10 @@
                     VerticalOptions="Center"
                     IsToggled="{Binding IsMicrophoneActive}"
                     />
-
             </StackLayout>
 
             <StackLayout 
-                Grid.Row="3"
+                Grid.Row="4"
                 Orientation="Horizontal"
                 HorizontalOptions="CenterAndExpand"
                 Padding="10"
@@ -111,33 +131,11 @@
                 </Label.Triggers>
             </Label>-->
 
-            <StackLayout
-                Grid.Row="4"
-                Spacing="5"
-                Margin="5"
-                Orientation="Horizontal"
-                HorizontalOptions="Center">
-
-                <Button 
-                    x:Name="controlButton" 
-                    Text="Stop" 
-                    Command="{Binding StopCameraCommand}"
-                    Clicked="controlButton_Clicked"
-                    />
-
-                <Button 
-                    x:Name="ButtonStart" 
-                    Text="Start" 
-                    Command="{Binding StopCameraCommand}"
-                    Clicked="ButtonStart_Clicked"
-                    />
-            </StackLayout>
-
-            <StackLayout
+            <HorizontalStackLayout
                 Grid.Row="5"
-                Spacing="5"
+                Spacing="45"
                 Margin="5"
-                Orientation="Horizontal">
+                HorizontalOptions="Center">
 
                 <Button
                     HorizontalOptions="CenterAndExpand"
@@ -155,7 +153,7 @@
                     Command="{Binding CheckMicrophoneStatusCommand}"
                     />
 
-            </StackLayout>
+            </HorizontalStackLayout>
 
         </Grid>
     </ScrollView>
