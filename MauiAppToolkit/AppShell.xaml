@@ -7,7 +7,7 @@
     Shell.FlyoutBehavior="Flyout">
 
     <FlyoutItem Title="Home" Route="filepage" FlyoutIcon="{StaticResource IconOneFlyout}">
-        
+
         <Tab Title="File" Icon="{StaticResource IconOneTab}">
             <ShellContent
                 Title="File"
@@ -15,6 +15,17 @@
                 Route="filepage" />
         </Tab>
 
+        <Tab Title="OpticRecog" Icon="{StaticResource IconTabTwo}">
+            <ShellContent
+                Title="File"
+                ContentTemplate="{DataTemplate local:Views.OpticalRecogPage}"
+                Route="filepage" />
+        </Tab>
+        
+    </FlyoutItem>
+
+    <FlyoutItem Title="Sensor" Route="sensorpage" FlyoutIcon="{StaticResource IconTreeFlyout}">
+            
         <Tab Title="Géoloc" Icon="{StaticResource IconThree}">
             <ShellContent
                 Title="Géoloc"

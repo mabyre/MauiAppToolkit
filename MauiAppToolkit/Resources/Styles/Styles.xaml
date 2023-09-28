@@ -11,24 +11,37 @@
                Size="22"
                Color="{StaticResource Primary}"
                Glyph="{x:Static local:IconFont.Home}"/>
-    
-    <FontImage x:Key="IconOneTab"
-               FontFamily="FontAwesome"
-               Size="22"
-               Color="{StaticResource Gray100}"
-               Glyph="{x:Static local:IconFont.File}"/>
 
     <FontImage x:Key="IconTwoFlyout"
                FontFamily="FontAwesome"
                Size="22"
                Color="{StaticResource Primary}"
                Glyph="{x:Static local:IconFont.Bomb}"/>
+
+    <FontImage x:Key="IconTreeFlyout"
+               FontFamily="FontAwesome"
+               Size="22"
+               Color="{StaticResource Primary}"
+               Glyph="{x:Static local:IconFont.Gamepad}"/>
+
+    <FontImage x:Key="IconOneTab"
+               FontFamily="FontAwesome"
+               Size="22"
+               Color="{StaticResource Gray100}"
+               Glyph="{x:Static local:IconFont.File}"/>
+
+    <FontImage x:Key="IconTabTwo"
+               FontFamily="FontAwesome"
+               Size="22"
+               Color="{StaticResource Gray100}"
+               Glyph="{x:Static local:IconFont.Brush}"/>
     
     <FontImage x:Key="IconThree"
                FontFamily="FontAwesome"
                Size="22"
                Color="{StaticResource Primary}"
                Glyph="{x:Static local:IconFont.DiceThree}"/>
+    
     <FontImage x:Key="IconFour"
                FontFamily="FontAwesome"
                Size="22"
