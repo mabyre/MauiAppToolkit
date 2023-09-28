@@ -14,6 +14,13 @@ public class OpticalRecogViewModel : BaseViewModel
     private bool _isCheckingLocation;
     private string format = "F8";
 
+    private bool _playing = false;
+    public bool IsCameraPlaying
+    {
+        set { SetProperty( ref _playing, value ); }
+        get { return _playing; }
+    }
+
     public ICommand CheckCameraStatusCommand { private set; get; }
     public ICommand CheckMicrophoneStatusCommand { private set; get; }
     public ICommand StartCameraCommand { private set; get; }

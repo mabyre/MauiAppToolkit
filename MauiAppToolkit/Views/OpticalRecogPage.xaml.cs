@@ -1,15 +1,18 @@
 using Camera.MAUI;
+using MauiAppToolkit.ViewModels;
 
 namespace MauiAppToolkit.Views;
 
 public partial class OpticalRecogPage : ContentPage
 {
-    bool playing = false;
+    OpticalRecogViewModel _viewModel;
 
-    public OpticalRecogPage()
+    public OpticalRecogPage( OpticalRecogViewModel viewModel )
     {
         InitializeComponent();
 
+        _viewModel = viewModel;
+        BindingContext = _viewModel;
         cameraView.CamerasLoaded += CameraView_CamerasLoaded;
     }
 
@@ -25,7 +28,7 @@ public partial class OpticalRecogPage : ContentPage
                 {
                     if ( await cameraView.StartCameraAsync() == CameraResult.Success )
                     {
-                        playing = true;
+                        _viewModel.IsCameraPlaying = true;
                     }
                 } 
             );
@@ -36,7 +39,7 @@ public partial class OpticalRecogPage : ContentPage
     {
         if ( await cameraView.StartCameraAsync() == CameraResult.Success )
         {
-            playing = true;
+            _viewModel.IsCameraPlaying = true;
         }
     }
 
@@ -44,8 +47,7 @@ public partial class OpticalRecogPage : ContentPage
     {
         if ( await cameraView.StopCameraAsync() == CameraResult.Success )
         {
-            playing = false;
+            _viewModel.IsCameraPlaying = false;
         }
     }
-
 }

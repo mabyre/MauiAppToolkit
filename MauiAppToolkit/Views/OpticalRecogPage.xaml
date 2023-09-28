@@ -45,6 +45,28 @@
                 x:Name="cameraView"
                 WidthRequest="300" 
                 HeightRequest="200"/>
+            
+            <StackLayout 
+                Grid.Row="3"
+                Orientation="Horizontal"
+                HorizontalOptions="CenterAndExpand"
+                Padding="10"
+                Spacing="15">
+
+                <Label 
+                    HeightRequest="30"
+                    VerticalOptions="Center"
+                    VerticalTextAlignment="Center"
+                    Text="Camera is playing"
+                    />
+
+                <Switch 
+                    x:Name="switchCameraPlay"
+                    HeightRequest="30"
+                    VerticalOptions="CenterAndExpand"
+                    IsToggled="{Binding IsCameraPlaying}"
+                    />
+            </StackLayout>
 
             <HorizontalStackLayout
                 Grid.Row="2"

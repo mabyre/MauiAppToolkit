@@ -36,6 +36,7 @@ public static class MauiProgram
         mauiAppBuilder.Services.AddSingleton<ViewModels.ConsoleViewModel>(); 
         mauiAppBuilder.Services.AddSingleton<ViewModels.FileViewModel>();
         mauiAppBuilder.Services.AddTransient<ViewModels.SpeechToTextViewModel>();
+        mauiAppBuilder.Services.AddTransient<ViewModels.OpticalRecogViewModel>();
 
         return mauiAppBuilder;
     }
@@ -45,6 +46,7 @@ public static class MauiProgram
         mauiAppBuilder.Services.AddSingleton<ConsolePage>();
         mauiAppBuilder.Services.AddSingleton<FilePage>();
         mauiAppBuilder.Services.AddSingleton<SpeechToTextPage>();
+        mauiAppBuilder.Services.AddSingleton<OpticalRecogPage>();
 
         return mauiAppBuilder;
     }
