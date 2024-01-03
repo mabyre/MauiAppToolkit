@@ -6,7 +6,7 @@ This project comes from the need of understanding what happend on Android platef
 when you save a file the content is not saved it just disapear in cache memory
 what is the way to save a file for exemple in OneDrive...
 
-storage/emulated/0/Android/data/com.compagnyname.appname
+***storage/emulated/0/Android/data/com.compagnyname.appname***
 
 <img style="margin: 10px" src="Images/2023-06-02_09h49_46.png" alt="MAUI App ToolKit" />
 
@@ -17,7 +17,7 @@ storage/emulated/0/Android/data/com.compagnyname.appname
 
 ## Getting started
 
-This application is a Flyout Tab ContentPage:
+This application is a **Flyout Tab ContentPage**:
 
 ```xaml
 <FlyoutItem Title="Console" Route="consolepage" FlyoutIcon="{StaticResource IconTwo}">
