@@ -1,5 +1,6 @@
 using Camera.MAUI;
 using MauiAppToolkit.ViewModels;
+//using Windows.Media.Ocr;
 
 namespace MauiAppToolkit.Views;
 
@@ -49,5 +50,10 @@ public partial class OpticalRecogPage : ContentPage
         {
             _viewModel.IsCameraPlaying = false;
         }
+    }
+
+    private async void ButtonExtract_Clicked( object sender, EventArgs e )
+    {
+        //OcrEngine ocrEngine = null;
     }
 }

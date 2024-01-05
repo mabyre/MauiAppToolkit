@@ -87,6 +87,11 @@
                     Command="{Binding StopCameraCommand}"
                     Clicked="ButtonStop_Clicked"
                     />
+                <Button 
+                    x:Name="ButtonExtract" 
+                    Text="Extract" 
+                    Clicked="ButtonExtract_Clicked"
+                    />                
             </HorizontalStackLayout>
 
         </Grid>
