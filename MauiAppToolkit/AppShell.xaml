@@ -49,7 +49,7 @@
     
     </FlyoutItem>
 
-    <FlyoutItem Title="Admin" Route="consolepage" FlyoutIcon="{StaticResource IconTwoFlyout}">
+    <FlyoutItem Title="Console" Route="consolepage" FlyoutIcon="{StaticResource IconTwoFlyout}">
 
         <Tab Title="Console" Icon="{StaticResource IconTwoFlyout}">
             <ShellContent
