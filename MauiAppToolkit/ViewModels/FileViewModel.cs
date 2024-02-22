@@ -274,7 +274,7 @@ public sealed class FileViewModel : BaseViewModel
         // User want to save a New File writing his name by hand in TextBoxFileName
         string fileName = TextBoxFileName;
 
-        // There is no path in the file name
+        // There is no path in TextBoxFileName
         // we put the path instead of the user
         //
         if (containPath(fileName) == false) 
