@@ -300,9 +300,10 @@ public sealed class FileViewModel : BaseViewModel
                 // But on Android The file may come from very far away
                 // and needed to be saved in : externalStorageDirectory
                 //
-                char[] delimiterChars = { '/', '\\' };
-                string[] name = TextBoxFileName.Split(delimiterChars);
-                TextBoxFileName = externalStorageDirectory + name[name.Length - 1];
+                //char[] delimiterChars = { '/', '\\' };
+                //string[] name = TextBoxFileName.Split(delimiterChars);
+                //TextBoxFileName = externalStorageDirectory + name[name.Length - 1];
+                TextBoxFileName = externalStorageDirectory + Path.GetFileName( TextBoxFileName );
             }
         }
 
